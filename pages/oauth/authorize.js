@@ -36,7 +36,7 @@ export default function Authorize () {
 
   return (
     <div>
-      { accessToken === '' ? 'Fetching access token...' : JSON.stringify(accessToken) }
+      { accessToken === '' ? 'Fetching access token...' : 'Redirecting back to app' }
     </div>
   )
 }
