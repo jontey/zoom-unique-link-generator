@@ -11,17 +11,22 @@ export default async (req, res) => {
     const { method, url, params, data, headers } = req.body
     const { authorization } = headers
 
-    const response = await request({
-      headers: {
-        authorization
-      },
-      url,
-      params,
-      method,
-      data
-    })
+    try {
+      const response = await request({
+        headers: {
+          authorization
+        },
+        url,
+        params,
+        method,
+        data
+      })
 
-    res.json(response.data)
+      return res.json(response.data)
+    } catch (e) {
+      console.log('[Error] zoom.js', e)
+      return res.status(e.status)
+    }
   } else {
     return res.status(404)
   }

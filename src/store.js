@@ -1,15 +1,17 @@
 import { useMemo } from 'react'
 import { createStore, applyMiddleware } from 'redux'
 import { composeWithDevTools } from 'redux-devtools-extension'
+import { persistStore, persistReducer } from 'redux-persist'
+import storage from 'redux-persist/lib/storage'
 
 let store
 
-const initialState = {
+const defaultState = {
   accessToken: '',
   refreshToken: ''
 }
 
-const reducer = (state = initialState, action) => {
+const reducer = (state = defaultState, action) => {
   switch (action.type) {
     case "SET_TOKEN":
       return {
@@ -22,9 +24,14 @@ const reducer = (state = initialState, action) => {
   }
 }
 
-function initStore(preloadedState = initialState) {
+const persistedReducer = persistReducer({
+  key: 'root',
+  storage
+}, reducer)
+
+function initStore(preloadedState = defaultState) {
   return createStore(
-    reducer,
+    persistedReducer,
     preloadedState,
     composeWithDevTools(applyMiddleware())
   )
