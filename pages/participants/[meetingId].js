@@ -1,15 +1,16 @@
 import axios from 'axios'
-import { useState } from 'react'
+import { createRef, useState } from 'react'
 import { useSelector } from 'react-redux'
 import MaterialTable from 'material-table'
 import { useRouter } from 'next/router'
-import Layout from '../../components/layout';
+import Layout from '../../components/layout'
 
 function Participants() {
   const router = useRouter()
   const { meetingId } = router.query
   const accessToken = useSelector(state => state.accessToken)
-  const [nextPageToken, setNextPageToken] = useState('')
+  const [ nextPageToken, setNextPageToken ] = useState('')
+  const tableRef = createRef()
 
   return (
     <Layout>
@@ -42,17 +43,19 @@ function Participants() {
                 page_size: query.pageSize,
                 page_number: query.page + 1,
                 next_page_token: nextPageToken
-              },
+              }
             }).then((response) => {
               console.log(response.data)
               if (response.data.registrants) {
                 setNextPageToken(response.data.next_page_token)
-                resolve({
+                return resolve({
                   data: response.data.registrants,
                   page: response.data.page_number - 1,
                   totalCount: response.data.total_records
                 })
               }
+            }).catch(e => {
+              return reject(e)
             })
           })
         }
@@ -61,7 +64,7 @@ function Participants() {
             icon: 'refresh',
             tooltip: 'Refresh Data',
             isFreeAction: true,
-            onClick: () => tableRef.current && tableRef.current.onQueryChange(),
+            onClick: () => tableRef.current && tableRef.current.onQueryChange()
           },
           {
             icon: 'group',
@@ -74,6 +77,7 @@ function Participants() {
         options={{
           actionsColumnIndex: -1
         }}
+        tableRef={tableRef}
       />
     </Layout>
   )

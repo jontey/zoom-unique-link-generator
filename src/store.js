@@ -1,7 +1,7 @@
 import { useMemo } from 'react'
 import { createStore, applyMiddleware } from 'redux'
 import { composeWithDevTools } from 'redux-devtools-extension'
-import { persistStore, persistReducer } from 'redux-persist'
+import { persistReducer } from 'redux-persist'
 import storage from 'redux-persist/lib/storage'
 
 let store
@@ -13,14 +13,16 @@ const defaultState = {
 
 const reducer = (state = defaultState, action) => {
   switch (action.type) {
-    case "SET_TOKEN":
+    case 'SET_TOKEN':
       return {
         ...state,
         accessToken: action.accessToken,
         refreshToken: action.refreshToken
-      };
+      }
+    case 'CLEAR_TOKEN':
+      return defaultState
     default:
-      return state;
+      return state
   }
 }
 
@@ -45,7 +47,7 @@ export const initializeStore = (preloadedState) => {
   if (preloadedState && store) {
     _store = initStore({
       ...store.getState(),
-      ...preloadedState,
+      ...preloadedState
     })
     // Reset the current store
     store = undefined
@@ -60,6 +62,6 @@ export const initializeStore = (preloadedState) => {
 }
 
 export function useStore(initialState) {
-  const store = useMemo(() => initializeStore(initialState), [initialState])
+  const store = useMemo(() => initializeStore(initialState), [ initialState ])
   return store
 }

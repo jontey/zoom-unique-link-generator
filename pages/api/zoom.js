@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const ZOOM_API_URL = "https://api.zoom.us/v2"
+const ZOOM_API_URL = 'https://api.zoom.us/v2'
 
 const request = axios.create({
   baseURL: ZOOM_API_URL
@@ -24,8 +24,8 @@ export default async (req, res) => {
 
       return res.json(response.data)
     } catch (e) {
-      console.log('[Error] zoom.js', e)
-      return res.status(e.status)
+      console.log('[Error] zoom.js', e.response)
+      return res.status(e.response.status).json(e.response.data)
     }
   } else {
     return res.status(404)
@@ -34,6 +34,6 @@ export default async (req, res) => {
 
 export const config = {
   api: {
-    bodyParser: true,
-  },
+    bodyParser: true
+  }
 }

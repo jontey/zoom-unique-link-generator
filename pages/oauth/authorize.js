@@ -6,7 +6,7 @@ import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { setToken } from '../../src/actions/user'
 
-const REDIRECT_URL = `http://localhost:3000/oauth/authorize`
+const REDIRECT_URL = 'http://localhost:3000/oauth/authorize'
 
 export default function Authorize () {
   const router = useRouter()
@@ -30,9 +30,12 @@ export default function Authorize () {
         accessToken: response.data.access_token,
         refreshToken: response.data.refresh_token
       }))
-      router.push("/")
+    }).catch(e => {
+      console.log('[Error] authorize.js', e)
+    }).finally(() => {
+      router.push('/')
     })
-  }, [query])
+  }, [ query ])
 
   return (
     <div>

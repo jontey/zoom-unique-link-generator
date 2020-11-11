@@ -8,13 +8,19 @@ export default async (req, res) => {
   if (req.method === 'POST') {
     const { refresh_token } = req.body
 
-    const response = await axios.post(`https://zoom.us/oauth/token?grant_type=refresh_token&refresh_token=${refresh_token}`, {}, {
-      headers: {
-        'Authorization': `Basic ${BASIC_AUTH_TOKEN}`
-      }
-    })
+    try {
+      const response = await axios.post(`https://zoom.us/oauth/token?grant_type=refresh_token&refresh_token=${refresh_token}`, {}, {
+        headers: {
+          'Authorization': `Basic ${BASIC_AUTH_TOKEN}`
+        },
+        _retry: true
+      })
 
-    res.json(response.data)
+      res.json(response.data)
+    } catch (e) {
+      console.log('[Error] refresh_token.js', e)
+      return res.status(e.status).json(e.data)
+    }
   } else {
     return res.status(404)
   }
@@ -22,6 +28,6 @@ export default async (req, res) => {
 
 export const config = {
   api: {
-    bodyParser: true,
-  },
+    bodyParser: true
+  }
 }
