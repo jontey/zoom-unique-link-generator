@@ -3,6 +3,7 @@ import { createRef, useState } from 'react'
 import { useSelector } from 'react-redux'
 import MaterialTable from 'material-table'
 import { useRouter } from 'next/router'
+import { Button } from '@material-ui/core'
 
 function Meetings() {
   const router = useRouter()
@@ -24,7 +25,9 @@ function Meetings() {
         },
         {
           title: 'Link',
-          field: 'join_url'
+          field: 'join_url',
+          // eslint-disable-next-line react/display-name
+          render: (rowData) => <Button color="primary" variant="contained" href={rowData.join_url}>Join Link</Button>
         }
       ]}
       data={query =>
@@ -62,12 +65,6 @@ function Meetings() {
           tooltip: 'Refresh Data',
           isFreeAction: true,
           onClick: () => tableRef.current && tableRef.current.onQueryChange()
-        },
-        {
-          icon: 'add',
-          tooltip: 'Add User',
-          isFreeAction: true,
-          onClick: () => alert('You want to add a new row')
         },
         {
           icon: 'group',

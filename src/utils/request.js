@@ -30,14 +30,12 @@ export default function setupAxios(axios, store) {
                 }).catch(err => {
                   reject(err)
                 })
+            }).catch(err => {
+              console.log('[Error] retry request', err)
+              store.dispatch(clearToken())
+              reject(err)
             })
-              .catch(err => {
-                console.log('[Error] retry request', err)
-                reject(err)
-              })
           })
-        } else {
-          store.dispatch(clearToken())
         }
       } finally {
         // eslint-disable-next-line no-unsafe-finally

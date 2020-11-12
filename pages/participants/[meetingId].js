@@ -1,33 +1,49 @@
 import axios from 'axios'
-import { createRef, useState } from 'react'
+import { createRef, useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import MaterialTable from 'material-table'
+import { Button, IconButton } from '@material-ui/core'
 import { useRouter } from 'next/router'
 import Layout from '../../components/layout'
+import AddParticipants from '../../components/participants/add'
+import { ArrowBack } from '@material-ui/icons'
 
 function Participants() {
   const router = useRouter()
   const { meetingId } = router.query
   const accessToken = useSelector(state => state.accessToken)
   const [ nextPageToken, setNextPageToken ] = useState('')
+  const [ showAddParticipant, setShowAddParticipant ] = useState(false)
   const tableRef = createRef()
 
+  const onBack = <IconButton style={{ color: 'white' }} onClick={() => router.push('/')}><ArrowBack /></IconButton>
+
+  useEffect(() => {
+    if(!showAddParticipant) {
+      if (tableRef.current) {
+        tableRef.current.onQueryChange()
+      }
+    }
+  }, [ showAddParticipant ])
+
   return (
-    <Layout>
+    <Layout onBack={onBack}>
       <MaterialTable
         title="Meeting List"
         columns={[
           {
-            title: 'Title',
-            field: 'topic'
+            title: 'Name',
+            field: 'first_name'
           },
           {
-            title: 'Start Time',
-            field: 'start_time'
+            title: 'Email',
+            field: 'email'
           },
           {
             title: 'Link',
-            field: 'join_url'
+            field: 'join_url',
+            // eslint-disable-next-line react/display-name
+            render: (rowData) => <Button color="primary" variant="contained" href={rowData.join_url}>Join Link</Button>
           }
         ]}
         data={query =>
@@ -67,11 +83,10 @@ function Participants() {
             onClick: () => tableRef.current && tableRef.current.onQueryChange()
           },
           {
-            icon: 'group',
-            tooltip: 'Edit Participants',
-            onClick: (event, rowData) => {
-              router.push(`/participants/${rowData.id}`)
-            }
+            icon: 'add',
+            tooltip: 'Add User',
+            isFreeAction: true,
+            onClick: () => setShowAddParticipant(true)
           }
         ]}
         options={{
@@ -79,6 +94,7 @@ function Participants() {
         }}
         tableRef={tableRef}
       />
+      <AddParticipants meetingId={meetingId} isOpen={showAddParticipant} onClose={() => setShowAddParticipant(false)}/>
     </Layout>
   )
 }

@@ -20,7 +20,7 @@ const useStyles = makeStyles((theme) => ({
   }
 }))
 
-export default function Layout({ children }) {
+export default function Layout({ children, onBack }) {
   const classes = useStyles()
   const dispatch = useDispatch()
   const accessToken = useSelector(state => state.accessToken)
@@ -45,6 +45,7 @@ export default function Layout({ children }) {
       <div>
         {accessToken !== '' && <AppBar position="static">
           <Toolbar>
+            {onBack}
             <Typography variant="h6" className={classes.title}>
               
             </Typography>
