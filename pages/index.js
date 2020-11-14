@@ -38,7 +38,7 @@ export const getStaticProps = () => {
   const REDIRECT_URL = process.env.ZOOM_REDIRECT_URL || 'http://localhost:3000/oauth/authorize'
   return {
     props: {
-      INSTALL_URL:`https://zoom.us/oauth/authorize?response_type=code&client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URL}`
+      INSTALL_URL:`https://zoom.us/oauth/authorize?response_type=code&client_id=${CLIENT_ID}`
     }
   }
 }
