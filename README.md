@@ -1,1 +1,3 @@
-This is a starter template for [Learn Next.js](https://nextjs.org/learn).
+# Zoom Unique Link Generator
+
+This project is a web app to create unique invite links for Zoom Meetings with registration enabled.
