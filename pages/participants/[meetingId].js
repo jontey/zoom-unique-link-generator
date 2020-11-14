@@ -71,6 +71,7 @@ function Participants() {
                 })
               }
             }).catch(e => {
+              console.log('[Error] fetchParticipants', e)
               return reject(e)
             })
           })

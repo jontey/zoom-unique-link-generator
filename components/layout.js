@@ -3,6 +3,7 @@ import { makeStyles } from '@material-ui/core/styles'
 import Head from 'next/head'
 import { useDispatch, useSelector } from 'react-redux'
 import { setToken } from '../src/actions/user'
+import { useRouter } from 'next/router'
 
 
 const useStyles = makeStyles((theme) => ({
@@ -21,6 +22,7 @@ const useStyles = makeStyles((theme) => ({
 }))
 
 export default function Layout({ children, onBack }) {
+  const router = useRouter()
   const classes = useStyles()
   const dispatch = useDispatch()
   const accessToken = useSelector(state => state.accessToken)
@@ -30,6 +32,7 @@ export default function Layout({ children, onBack }) {
       accessToken: '',
       refreshToken: ''
     }))
+    router.push('/')
   }
 
   return (

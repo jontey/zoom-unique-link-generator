@@ -6,9 +6,7 @@ import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { setToken } from '../../src/actions/user'
 
-const REDIRECT_URL = 'http://localhost:3000/oauth/authorize'
-
-export default function Authorize () {
+export default function Authorize ({ REDIRECT_URL }) {
   const router = useRouter()
   const dispatch = useDispatch()
   const { query } = router  
@@ -42,4 +40,13 @@ export default function Authorize () {
       { accessToken === '' ? 'Fetching access token...' : 'Redirecting back to app' }
     </div>
   )
+}
+
+export const getStaticProps = () => {
+  const REDIRECT_URL = process.env.ZOOM_REDIRECT_URL || 'http://localhost:3000/oauth/authorize'
+  return {
+    props: {
+      REDIRECT_URL
+    }
+  }
 }
