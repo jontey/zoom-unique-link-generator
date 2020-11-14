@@ -44,6 +44,7 @@ export default function Layout({ children, onBack }) {
           content="minimum-scale=1, initial-scale=1, width=device-width"
         />
         <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
+        <link rel="icon" href="favicon.png" sizes="32x32" type="image/png"></link>
       </Head>
       <div>
         {accessToken !== '' && <AppBar position="static">
