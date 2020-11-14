@@ -103,7 +103,7 @@ function Meetings() {
           icon: 'settings',
           tooltip: 'Fix Meeting Settings',
           onClick: (event, rowData) => {
-            const confirm = window.confirm('Are you sure you want to fix this meeting?')
+            const confirm = window.confirm('Are you sure you want to enable registration for this meeting?')
             if (confirm) {
               fixMeetingPermissions(rowData.id)
             }
