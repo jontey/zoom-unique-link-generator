@@ -6,12 +6,16 @@ import axios from 'axios'
 export default function AddParticipants({ isOpen, onClose, meetingId }) {
   const accessToken = useSelector(state => state.accessToken)
   const [ name, setName ] = useState('')
+  const [ locality, setLocality ] = useState('')
   const [ email, setEmail ] = useState('')
 
   const onChangeInput = (event) => {
     switch(event.target.id) {
       case 'name':
         setName(event.target.value)
+        break
+      case 'locality':
+        setLocality(event.target.value)
         break
       case 'email':
         setEmail(event.target.value)
@@ -22,12 +26,12 @@ export default function AddParticipants({ isOpen, onClose, meetingId }) {
   const addParticipant = async (event) => {
     event.preventDefault()
 
-    console.log(name, email)
-    if (!name||!email) {
+    console.log({ name, locality, email })
+    if (!name||!email||!locality) {
       return
     }
     try {
-      const response = axios.post('/api/zoom', {
+      const response = await axios.post('/api/zoom', {
         headers: {
           authorization: `Bearer ${accessToken}`
         },
@@ -35,6 +39,7 @@ export default function AddParticipants({ isOpen, onClose, meetingId }) {
         method: 'post',
         data: {
           first_name: name,
+          last_name: locality,
           email,
           auto_approve: true
         }
@@ -65,6 +70,14 @@ export default function AddParticipants({ isOpen, onClose, meetingId }) {
             label="Name"
             fullWidth
             value={name}
+            onChange={onChangeInput}
+            autoComplete="off"
+          />
+          <TextField
+            id="locality"
+            label="Locality"
+            fullWidth
+            value={locality}
             onChange={onChangeInput}
             autoComplete="off"
           />

@@ -11,6 +11,32 @@ function Meetings() {
   const [ nextPageToken, setNextPageToken ] = useState('')
   const tableRef = createRef()
 
+
+  const fixMeetingPermissions = async (meetingId) => {
+    try {
+      await axios.post('/api/zoom', {
+        headers: {
+          authorization: `Bearer ${accessToken}`
+        },
+        url: `/meetings/${meetingId}`,
+        method: 'patch',
+        data: {
+          settings: {
+            approval_type: 1,
+            registration_type: 1,
+            registrants_confirmation_email: false,
+            registrants_email_confirmation: false,
+            show_share_button: false,
+            allow_multiple_devices: false
+          }
+        }
+      })
+      
+    } catch (e) {
+      console.log('[Error] fixMeetingPermissions', e)
+    }
+  }
+
   return (
     <MaterialTable
       title="Meeting List"
@@ -71,6 +97,16 @@ function Meetings() {
           tooltip: 'Edit Participants',
           onClick: (event, rowData) => {
             router.push(`/participants/${rowData.id}`)
+          }
+        },
+        {
+          icon: 'settings',
+          tooltip: 'Fix Meeting Settings',
+          onClick: (event, rowData) => {
+            const confirm = window.confirm('Are you sure you want to fix this meeting?')
+            if (confirm) {
+              fixMeetingPermissions(rowData.id)
+            }
           }
         }
       ]}

@@ -36,6 +36,10 @@ function Participants() {
             field: 'first_name'
           },
           {
+            title: 'Locality',
+            field: 'last_name'
+          },
+          {
             title: 'Email',
             field: 'email'
           },
