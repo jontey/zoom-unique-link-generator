@@ -95,7 +95,9 @@ function Participants() {
           }
         ]}
         options={{
-          actionsColumnIndex: -1
+          exportButton: true,
+          actionsColumnIndex: -1,
+          pageSizeOptions: [ 5,10,30 ]
         }}
         tableRef={tableRef}
       />
