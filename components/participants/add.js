@@ -56,6 +56,7 @@ export default function AddParticipants({ isOpen, onClose, meetingId }) {
   useEffect(() => {
     if (!isOpen) {
       setName('')
+      setLocality('')
       setEmail('')
     }
   }, [ isOpen ])
