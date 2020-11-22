@@ -1,11 +1,11 @@
+import { Backdrop, CircularProgress } from '@material-ui/core'
+import axios from 'axios'
+import { SnackbarProvider } from 'notistack'
 import { Provider } from 'react-redux'
-import  { useStore } from '../src/store'
 import { persistStore } from 'redux-persist'
 import { PersistGate } from 'redux-persist/integration/react'
-import axios from 'axios'
+import { useStore } from '../src/store'
 import setupAxios from '../src/utils/request'
-
-import { Backdrop, CircularProgress } from '@material-ui/core'
 
 function App({ Component, pageProps }) {
   const store = useStore(pageProps.initialReduxState)
@@ -17,7 +17,9 @@ function App({ Component, pageProps }) {
   return (
     <Provider store={store}>
       <PersistGate loading={<Backdrop open={true}><CircularProgress/></Backdrop>} persistor={persistor}>
-        <Component {...pageProps} />
+        <SnackbarProvider>
+          <Component {...pageProps} />
+        </SnackbarProvider>
       </PersistGate>
     </Provider>
   )

@@ -1,12 +1,13 @@
+import { Button, IconButton } from '@material-ui/core'
+import { ArrowBack } from '@material-ui/icons'
 import axios from 'axios'
+import MaterialTable from 'material-table'
+import { useRouter } from 'next/router'
 import { createRef, useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
-import MaterialTable from 'material-table'
-import { Button, IconButton } from '@material-ui/core'
-import { useRouter } from 'next/router'
 import Layout from '../../components/layout'
 import AddParticipants from '../../components/participants/add'
-import { ArrowBack } from '@material-ui/icons'
+import CSVUpload from '../../components/participants/csv_upload'
 
 function Participants() {
   const router = useRouter()
@@ -14,17 +15,18 @@ function Participants() {
   const accessToken = useSelector(state => state.accessToken)
   const [ nextPageToken, setNextPageToken ] = useState('')
   const [ showAddParticipant, setShowAddParticipant ] = useState(false)
+  const [ showAddCSVUpload, setShowAddCSVUpload ] = useState(false)
   const tableRef = createRef()
 
   const onBack = <IconButton style={{ color: 'white' }} onClick={() => router.push('/')}><ArrowBack /></IconButton>
 
   useEffect(() => {
-    if(!showAddParticipant) {
+    if(!showAddParticipant && !showAddCSVUpload) {
       if (tableRef.current) {
         tableRef.current.onQueryChange()
       }
     }
-  }, [ showAddParticipant ])
+  }, [ showAddParticipant, showAddCSVUpload ])
 
   return (
     <Layout onBack={onBack}>
@@ -92,6 +94,12 @@ function Participants() {
             tooltip: 'Add User',
             isFreeAction: true,
             onClick: () => setShowAddParticipant(true)
+          },
+          {
+            icon: 'upload',
+            tooltip: 'Upload CSV',
+            isFreeAction: true,
+            onClick: () => setShowAddCSVUpload(true)
           }
         ]}
         options={{
@@ -102,6 +110,7 @@ function Participants() {
         tableRef={tableRef}
       />
       <AddParticipants meetingId={meetingId} isOpen={showAddParticipant} onClose={() => setShowAddParticipant(false)}/>
+      <CSVUpload meetingId={meetingId} isOpen={showAddCSVUpload} onClose={() => setShowAddCSVUpload(false)}/>
     </Layout>
   )
 }
