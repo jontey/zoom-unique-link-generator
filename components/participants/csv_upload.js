@@ -51,7 +51,7 @@ export default function CSVUpload({ isOpen, onClose, meetingId }) {
           data: {
             first_name: name,
             last_name: locality,
-            email: email || `${name}.${locality}@stnl.my`,
+            email: email || `${name}.${locality}@stnl.my`.toLowerCase(),
             auto_approve: true
           }
         })
