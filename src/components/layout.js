@@ -2,7 +2,7 @@ import { AppBar, Button, Toolbar, Typography, Paper } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import Head from 'next/head'
 import { useDispatch, useSelector } from 'react-redux'
-import { setToken } from '../src/actions/user'
+import { setToken } from '@/actions/user'
 import { useRouter } from 'next/router'
 
 

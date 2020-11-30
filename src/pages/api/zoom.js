@@ -1,4 +1,5 @@
 import axios from 'axios'
+import db from '@/utils/db'
 
 const ZOOM_API_URL = 'https://api.zoom.us/v2'
 
@@ -10,6 +11,8 @@ export default async (req, res) => {
   if (req.method === 'POST') {
     const { method, url, params, data, headers } = req.body
     const { authorization } = headers
+
+    await db.authenticate
 
     try {
       const response = await request({

@@ -1,4 +1,4 @@
-import { setToken, clearToken } from '../actions/user'
+import { setToken, clearToken } from '@/actions/user'
 
 export default function setupAxios(axios, store) {
   axios.interceptors.response.use(

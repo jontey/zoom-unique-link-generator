@@ -1,6 +1,6 @@
-import Layout from '../components/layout'
+import Layout from '@/components/layout'
 import { useSelector } from 'react-redux'
-import Meetings from '../components/zoom/meetings'
+import Meetings from '@/components/zoom/meetings'
 import { Button } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 

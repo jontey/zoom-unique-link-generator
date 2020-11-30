@@ -4,8 +4,8 @@ import { SnackbarProvider } from 'notistack'
 import { Provider } from 'react-redux'
 import { persistStore } from 'redux-persist'
 import { PersistGate } from 'redux-persist/integration/react'
-import { useStore } from '../src/store'
-import setupAxios from '../src/utils/request'
+import { useStore } from '@/store'
+import setupAxios from '@/utils/request'
 
 function App({ Component, pageProps }) {
   const store = useStore(pageProps.initialReduxState)
