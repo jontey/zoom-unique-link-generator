@@ -1,10 +1,7 @@
-import { AppBar, Button, Toolbar, Typography, Paper } from '@material-ui/core'
+import { useAuth0 } from '@auth0/auth0-react'
+import { AppBar, Button, Paper, Toolbar, Typography } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import Head from 'next/head'
-import { useDispatch, useSelector } from 'react-redux'
-import { setToken } from '@/actions/user'
-import { useRouter } from 'next/router'
-
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -22,18 +19,8 @@ const useStyles = makeStyles((theme) => ({
 }))
 
 export default function Layout({ children, onBack }) {
-  const router = useRouter()
+  const { logout, isAuthenticated } = useAuth0()
   const classes = useStyles()
-  const dispatch = useDispatch()
-  const accessToken = useSelector(state => state.accessToken)
-
-  const logOut = () => {
-    dispatch(setToken({
-      accessToken: '',
-      refreshToken: ''
-    }))
-    router.push('/')
-  }
 
   return (
     <div className={classes.root}>
@@ -47,13 +34,13 @@ export default function Layout({ children, onBack }) {
         <link rel="icon" href="favicon.png" sizes="32x32" type="image/png"></link>
       </Head>
       <div>
-        {accessToken !== '' && <AppBar position="static">
+        {isAuthenticated && <AppBar position="static">
           <Toolbar>
             {onBack}
             <Typography variant="h6" className={classes.title}>
               
             </Typography>
-            <Button className={classes.logout} onClick={logOut}>
+            <Button className={classes.logout} onClick={() => logout({ returnTo: window.location.origin })}>
               Logout
             </Button>
           </Toolbar>

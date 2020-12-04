@@ -1,5 +1,5 @@
 import axios from 'axios'
-import db from '@/utils/db'
+import db from '@/db'
 
 const ZOOM_API_URL = 'https://api.zoom.us/v2'
 
@@ -12,7 +12,7 @@ export default async (req, res) => {
     const { method, url, params, data, headers } = req.body
     const { authorization } = headers
 
-    await db.authenticate
+    await db.sequelize.authenticate()
 
     try {
       const response = await request({
