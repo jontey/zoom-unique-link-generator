@@ -83,6 +83,9 @@ function Admin() {
         }}
         isLoading={loading}
         tableRef={tableRef}
+        onRowClick={(event, rowData) => {
+          router.push(`/user/${rowData.user_id}/meetings`)
+        }}
       />
     </Layout>
   )
