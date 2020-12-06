@@ -21,7 +21,7 @@ function Meetings() {
   const onBack = <IconButton style={{ color: 'white' }} onClick={() => router.back()}><ArrowBack /></IconButton>
 
   const fetchMeetingList = () => {
-    axios.get(`/api/meetings/${userId}`, {
+    axios.get(`/api/users/${userId}/meetings`, {
       headers: {
         authorization: `Bearer ${accessToken}`
       }
@@ -36,7 +36,7 @@ function Meetings() {
 
   const refreshMeeting = () => {
     setLoading(true)
-    axios.get(`/api/meetings/${userId}/refresh`, {
+    axios.get(`/api/users/${userId}/refresh`, {
       headers: {
         authorization: `Bearer ${accessToken}`
       }
@@ -132,7 +132,7 @@ function Meetings() {
                   )}
                   {[ 0,1 ].includes(rowData.approval_type) && (
                     <Tooltip title="Registration Enabled">
-                      <IconButton onClick={() => router.push(`/meeting/${rowData.meeting_id}/participants`)}>
+                      <IconButton onClick={() => router.push(`/meeting/${rowData.meeting_id}/registrants`)}>
                         <AssignmentInd style={{ color: 'green' }} />
                       </IconButton>
                     </Tooltip>

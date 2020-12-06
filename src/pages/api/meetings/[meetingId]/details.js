@@ -13,7 +13,7 @@ export default async (req, res) => {
     if (req.method === 'GET') {
       await runMiddleware(req, res, jwtAuthz([ 'write:user' ], { customScopeKey: 'permissions' }))
       
-      const { userId: meetingId } = req.query
+      const { meetingId } = req.query
 
       const account = await Account.findOne({
         attributes: [
