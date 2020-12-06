@@ -52,9 +52,8 @@ export default async (req, res) => {
       let total_records = 0
       const config = {
         type: 'scheduled', // scheduled, live, upcoming
-        page_size: 1,
-        next_page_token: undefined,
-        page_number: undefined
+        page_size: 30,
+        next_page_token: undefined
       }
       do {
         const { data } = await fetchMeeting({ userId, ...config })
@@ -63,7 +62,6 @@ export default async (req, res) => {
         // Fetch next page if needed
         total_records = data.total_records
         config.next_page_token = data.next_page_token
-        config.page_number = data.page_number
       } while (meetings.length !== total_records)
 
       await Promise.all(

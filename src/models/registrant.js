@@ -5,7 +5,8 @@ export default (sequelize) => {
     'zoom_registrant',
     {
       registrant_id: {
-        type: DataTypes.STRING
+        type: DataTypes.STRING,
+        primaryKey: true
       },
       email: {
         type: DataTypes.STRING
@@ -21,6 +22,9 @@ export default (sequelize) => {
       },
       join_url: {
         type: DataTypes.TEXT
+      },
+      meeting_id: {
+        type: DataTypes.STRING
       }
     }
   )
