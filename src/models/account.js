@@ -13,10 +13,9 @@ export default (sequelize) => {
       total_zoom_users: {
         type: DataTypes.INTEGER
       },
-      user: {
+      account_id: {
         type: DataTypes.STRING,
-        allowNull: false,
-        unique: true
+        primaryKey: true
       }
     },
     {
@@ -34,7 +33,7 @@ export default (sequelize) => {
   Account.associate = function (models) {
     // Define associations here
     // See http://docs.sequelizejs.com/en/latest/docs/associations/
-    Account.hasMany(models.ZoomUser)
+    // Account.hasMany(models.ZoomUser, { targetKey: 'account_id', foreignKey: 'account_id' })
   }
 
   return Account

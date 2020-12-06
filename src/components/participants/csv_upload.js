@@ -102,7 +102,7 @@ export default function CSVUpload({ isOpen, onClose, meetingId }) {
         useChipsForPreview={true}
         showAlerts={[ 'error' ]} 
       />
-      <Backdrop  className={classes.backdrop} open={loading}>
+      <Backdrop className={classes.backdrop} open={loading}>
         <>
           <CircularProgress color="inherit" />
           <Typography>

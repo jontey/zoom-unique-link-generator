@@ -1,6 +1,7 @@
 import { Sequelize } from 'sequelize'
 import Account from '@/models/account'
-import ZoomUser from '@/models/users'
+import ZoomUser from '@/models/user'
+import ZoomMeeting from '@/models/meeting'
 
 const db = {}
 
@@ -18,6 +19,7 @@ if (typeof window === 'undefined') {
   // Load tables
   db.Account = Account(sequelize)
   db.ZoomUser = ZoomUser(sequelize)
+  db.ZoomMeeting = ZoomMeeting(sequelize)
 
   // Load associations
   Object.keys(db).forEach(model => {

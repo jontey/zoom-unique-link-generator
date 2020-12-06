@@ -16,7 +16,7 @@ const useStyles = makeStyles(() => ({
 
 export default function Home() {
   const classes = useStyles()
-  const { isAuthenticated, loginWithRedirect, getAccessTokenSilently } = useAuth0()
+  const { user, isAuthenticated, loginWithRedirect, getAccessTokenSilently } = useAuth0()
   const dispatch = useDispatch()
 
   useEffect(() => {
@@ -26,7 +26,7 @@ export default function Home() {
           audience: 'https://app.stnl.my/api',
           scope: 'read:users'
         })
-        dispatch(setToken({ accessToken }))
+        dispatch(setToken({ accessToken, user }))
       })()
     }
   }, [ isAuthenticated ])

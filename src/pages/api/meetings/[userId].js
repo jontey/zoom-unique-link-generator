@@ -2,7 +2,7 @@ import db from '@/db'
 import jwtAuthz from 'express-jwt-authz'
 import { runMiddleware, jwtCheck } from '@/utils/middlewares'
 
-const { ZoomUser } = db
+const { ZoomMeeting } = db
 
 export default async (req, res) => {
   try {
@@ -11,16 +11,20 @@ export default async (req, res) => {
     if (req.method === 'GET') {
       await runMiddleware(req, res, jwtAuthz([ 'read:user' ], { customScopeKey: 'permissions' }))
       
-      const zoomUsers = await ZoomUser.findAll({
+      const { userId } = req.query
+
+      const data = await ZoomMeeting.findAll({
         where: {
-          user: req.user.sub
+          host_id: userId
         }
       })
-      return res.json({ users: zoomUsers })
+      
+      return res.json(data || [])
     } else {
       return res.status(404)
     }
   } catch (e) {
+    console.log(e)
     return res.status(500).json(e.message)
   }
 }

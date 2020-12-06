@@ -1,4 +1,3 @@
-import { withAuthenticationRequired } from '@auth0/auth0-react'
 import { CircularProgress, Dialog, DialogContent, DialogTitle, TextField, DialogActions, Button, Backdrop } from '@material-ui/core'
 import Axios from 'axios'
 import { useRouter } from 'next/router'
@@ -6,7 +5,7 @@ import { useSnackbar } from 'notistack'
 import { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 
-function me() {
+function Me() {
   const router = useRouter()
   const { enqueueSnackbar } = useSnackbar()
   const [ clientId, setClientId ] = useState(undefined)
@@ -18,27 +17,29 @@ function me() {
 
   useEffect(() => {
     if (accessToken) {
-      fetch('/api/account/me', {
-        method: 'GET',
+      Axios.get('/api/account/me', {
         headers: {
           authorization: `Bearer ${accessToken}`
         }
-      }).then(res => res.json())
-        .then(data => {
-          if (data?.account?.zoom_client_id) {
-            router.push('/admin')
-            setLoading(false)
-          }
-        })
-        .catch(e => {
-          enqueueSnackbar(`${e.response.data.message || e.message}`, { 
+      }).then(({ data }) => {
+        if (data?.account?.zoom_client_id) {
+          router.push('/admin')
+          setLoading(false)
+        }
+      }).catch(({ response, message }) => {
+        console.log('[Error] fetchUser', response)
+        if (response.status == 404 && response.data.message === 'User not found'){
+          setLoading(false)
+        } else {
+          enqueueSnackbar(`${response.data.message || message}`, { 
             variant: 'error',
             anchorOrigin: {
               vertical: 'top',
               horizontal: 'center'
             }
           })
-        })
+        }
+      })
     }
   }, [ accessToken ])
 
@@ -125,4 +126,4 @@ function me() {
   )
 }
 
-export default withAuthenticationRequired(me)
+export default Me

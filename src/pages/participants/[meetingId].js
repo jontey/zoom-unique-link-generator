@@ -18,7 +18,7 @@ function Participants() {
   const [ showAddCSVUpload, setShowAddCSVUpload ] = useState(false)
   const tableRef = createRef()
 
-  const onBack = <IconButton style={{ color: 'white' }} onClick={() => router.push('/')}><ArrowBack /></IconButton>
+  const onBack = <IconButton style={{ color: 'white' }} onClick={() => router.back()}><ArrowBack /></IconButton>
 
   useEffect(() => {
     if(!showAddParticipant && !showAddCSVUpload) {

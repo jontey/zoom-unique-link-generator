@@ -5,8 +5,7 @@ export default (sequelize) => {
     'zoom_user',
     {
       user_id: {
-        type: DataTypes.STRING,
-        unique: 'user_ownerIndex'
+        type: DataTypes.STRING
       },
       first_name: {
         type: DataTypes.STRING
@@ -23,18 +22,17 @@ export default (sequelize) => {
       pmi: {
         type: DataTypes.STRING
       },
-      user: {
-        type: DataTypes.STRING,
-        allowNull: false,
-        unique: 'user_ownerIndex'
+      account_id: {
+        type: DataTypes.STRING
       }
     },
     {
-      hooks: {
-        beforeCount(options) {
-          options.raw = true
+      indexes: [
+        {
+          unique: true,
+          fields: [ 'user_id', 'account_id' ]
         }
-      }
+      ]
     }
   )
 
@@ -42,7 +40,8 @@ export default (sequelize) => {
   ZoomUser.associate = function (models) {
     // Define associations here
     // See http://docs.sequelizejs.com/en/latest/docs/associations/
-    ZoomUser.belongsTo(models.Account)
+    // ZoomUser.belongsTo(models.Account, { sourceKey: 'account_id', foreignKey: 'account_id' })
+    // ZoomUser.hasMany(models.ZoomMeeting, { targetKey: 'host_id', foreignKey: 'user_id' })
   }
 
   return ZoomUser
