@@ -20,10 +20,14 @@ function Meetings() {
   
   const onBack = <IconButton style={{ color: 'white' }} onClick={() => router.back()}><ArrowBack /></IconButton>
 
-  const fetchMeetingList = () => {
+  const fetchMeetingList = (refresh = false) => {
+    setLoading(true)
     axios.get(`/api/users/${userId}/meetings`, {
       headers: {
         authorization: `Bearer ${accessToken}`
+      },
+      params: {
+        refresh
       }
     }).then(({ data })=> {
       setMeetingList(data)
@@ -31,17 +35,6 @@ function Meetings() {
       console.log('[Error] fetch Zoom Users', e)
     }).finally(() => {
       setLoading(false)
-    })
-  }
-
-  const refreshMeeting = () => {
-    setLoading(true)
-    axios.get(`/api/users/${userId}/refresh`, {
-      headers: {
-        authorization: `Bearer ${accessToken}`
-      }
-    }).then(() => {
-      fetchMeetingList()
     })
   }
 
@@ -154,7 +147,7 @@ function Meetings() {
             icon: 'refresh',
             tooltip: 'Fetch new meetings from Zoom',
             isFreeAction: true,
-            onClick: () => refreshMeeting()
+            onClick: () => fetchMeetingList(true)
           },
           {
             icon: 'update',

@@ -50,8 +50,6 @@ export default async (req, res) => {
         }
       })
 
-      // console.log(response)
-
       const account = await Account.upsert({
         zoom_client_id,
         zoom_client_secret,

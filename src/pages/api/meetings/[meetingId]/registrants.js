@@ -10,7 +10,7 @@ export default async (req, res) => {
   try {
     await runMiddleware(req, res, jwtCheck)
 
-    const { meetingId, refresh } = req.query
+    const { meetingId, refresh, status } = req.query
 
     if (req.method === 'GET') {
       await runMiddleware(req, res, jwtAuthz([ 'read:user' ], { customScopeKey: 'permissions' }))
@@ -51,8 +51,9 @@ export default async (req, res) => {
 
         const registrants = []
         let total_records = 0
+        let count = 0
         const params = {
-          status: 'approved', // pending, approved, denied
+          status: status || 'approved', // pending, approved, denied
           page_size: 30,
           next_page_token: undefined
         }
@@ -63,7 +64,8 @@ export default async (req, res) => {
           // Fetch next page if needed
           total_records = data.total_records
           params.next_page_token = data.next_page_token
-        } while (registrants.length !== total_records)
+          count++
+        } while (registrants.length !== total_records && count < 100)
 
         await Promise.all(
           registrants.map(registrant => {

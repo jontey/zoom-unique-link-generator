@@ -14,34 +14,29 @@ function Admin() {
   const [ users, setUsers ] = useState([])
   const [ loading, setLoading ] = useState(true)
 
-  const refreshUsers = () => {
-    axios.get('/api/users/refresh', {
+  const fetchUsers = (refresh = false) => {
+    setLoading(true)
+    axios.get('/api/users', {
       headers: {
         authorization: `Bearer ${accessToken}`
+      },
+      params: {
+        refresh
       }
-    }).then(() => {
-      setLoading(true)
+    }).then((response) => {
+      if (response.data.users) {
+        setUsers(response.data.users)
+      }
+    }).catch(e => {
+      console.log('[Error] fetch Zoom Users', e)
+    }).finally(() => {
+      setLoading(false)
     })
   }
 
   useEffect(() => {
-    if (loading) {
-      axios.get('/api/users', {
-        headers: {
-          authorization: `Bearer ${accessToken}`
-        }
-      }).then((response) => {
-        console.log({ users: response.data.users })
-        if (response.data.users) {
-          setUsers(response.data.users)
-        }
-      }).catch(e => {
-        console.log('[Error] fetch Zoom Users', e)
-      }).finally(() => {
-        setLoading(false)
-      })
-    }
-  }, [ loading ])
+    fetchUsers()
+  }, [])
 
   return (
     <Layout>
@@ -68,7 +63,7 @@ function Admin() {
             icon: 'refresh',
             tooltip: 'Refresh Data',
             isFreeAction: true,
-            onClick: () => refreshUsers()
+            onClick: () => fetchUsers(true)
           },
           {
             icon: 'meeting_room',
