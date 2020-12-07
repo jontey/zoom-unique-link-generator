@@ -8,6 +8,8 @@ import { ArrowBack, Check } from '@material-ui/icons'
 import Layout from '@/components/layout'
 import { withAuthenticationRequired } from '@auth0/auth0-react'
 import Loading from '@/components/loading'
+import AddParticipants from '@/components/participants/add'
+import CSVUpload from '@/components/participants/csv_upload'
 
 function Registrants() {
   const router = useRouter()
@@ -15,8 +17,10 @@ function Registrants() {
   const accessToken = useSelector(state => state.accessToken)
   const [ registrantList, setRegistrantList ] = useState([])
   const [ loading, setLoading ] = useState(true)
+  const [ showAddParticipant, setShowAddParticipant ] = useState(false)
+  const [ showAddCSVUpload, setShowAddCSVUpload ] = useState(false)
   const tableRef = createRef()
-  
+
   const onBack = <IconButton style={{ color: 'white' }} onClick={() => router.back()}><ArrowBack /></IconButton>
 
   const fetchRegistrantList = (refresh = false) => {
@@ -38,20 +42,11 @@ function Registrants() {
     })
   }
 
-  // const refreshMeeting = () => {
-  //   setLoading(true)
-  //   axios.get(`/api/users/${meetingId}/refresh`, {
-  //     headers: {
-  //       authorization: `Bearer ${accessToken}`
-  //     }
-  //   }).then(() => {
-  //     fetchregistrantList()
-  //   })
-  // }
-
   useEffect(() => {
-    fetchRegistrantList()
-  }, [])
+    if(!showAddParticipant && !showAddCSVUpload) {
+      fetchRegistrantList()
+    }
+  }, [ showAddParticipant, showAddCSVUpload ])
 
   return (
     <Layout onBack={onBack}>
@@ -67,7 +62,7 @@ function Registrants() {
             field: 'last_name'
           },
           {
-            title: 'email',
+            title: 'Email',
             field: 'email'
           },
           {
@@ -110,14 +105,18 @@ function Registrants() {
             tooltip: 'Fetch registrants from Zoom',
             isFreeAction: true,
             onClick: () => fetchRegistrantList(true)
-          // },
-          // {
-          //   icon: 'group',
-          //   tooltip: 'Edit Participants',
-          //   onClick: (event, rowData) => {
-          //     router.push(`/participants/${rowData.id}`)
-          //   }
-          // },
+          },
+          {
+            icon: 'add',
+            tooltip: 'Add User',
+            isFreeAction: true,
+            onClick: () => setShowAddParticipant(true)
+          },
+          {
+            icon: 'upload',
+            tooltip: 'Upload CSV',
+            isFreeAction: true,
+            onClick: () => setShowAddCSVUpload(true)
           // {
           //   icon: 'settings',
           //   tooltip: 'Fix Meeting Settings',
@@ -135,6 +134,8 @@ function Registrants() {
         isLoading={loading}
         tableRef={tableRef}
       />
+      <AddParticipants meetingId={meetingId} isOpen={showAddParticipant} onClose={() => setShowAddParticipant(false)}/>
+      <CSVUpload meetingId={meetingId} isOpen={showAddCSVUpload} onClose={() => setShowAddCSVUpload(false)}/>
     </Layout>
   )
 }

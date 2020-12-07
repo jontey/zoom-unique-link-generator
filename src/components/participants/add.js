@@ -2,20 +2,27 @@ import { Button, Dialog, DialogActions, DialogContent, DialogTitle, TextField } 
 import { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import axios from 'axios'
+import { useSnackbar } from 'notistack'
 
 export default function AddParticipants({ isOpen, onClose, meetingId }) {
+  
+  const { enqueueSnackbar } = useSnackbar()
   const accessToken = useSelector(state => state.accessToken)
-  const [ name, setName ] = useState('')
-  const [ locality, setLocality ] = useState('')
-  const [ email, setEmail ] = useState('')
+  const [ firstName, setFirstName ] = useState(undefined)
+  const [ lastName, setLastName ] = useState(undefined)
+  const [ email, setEmail ] = useState(undefined)
+  const [ firstNameError, setFirstNameError ] = useState(false)
+  const [ lastNameError, setLastNameError ] = useState(false)
 
   const onChangeInput = (event) => {
     switch(event.target.id) {
-      case 'name':
-        setName(event.target.value)
+      case 'first_name':
+        setFirstNameError(false)
+        setFirstName(event.target.value)
         break
-      case 'locality':
-        setLocality(event.target.value)
+      case 'last_name':
+        setLastNameError(false)
+        setLastName(event.target.value)
         break
       case 'email':
         setEmail(event.target.value)
@@ -26,37 +33,38 @@ export default function AddParticipants({ isOpen, onClose, meetingId }) {
   const addParticipant = async (event) => {
     event.preventDefault()
 
-    console.log({ name, locality, email })
-    if (!name||!email||!locality) {
+    if (!firstName||!lastName) {
+      setFirstNameError(!firstName)
+      setLastNameError(!lastName)
       return
     }
     try {
-      const response = await axios.post('/api/zoom', {
+      await axios.post(`/api/meetings/${meetingId}/registrants`,{
+        first_name: firstName,
+        last_name: lastName,
+        email
+      }, {
         headers: {
           authorization: `Bearer ${accessToken}`
-        },
-        url: `/meetings/${meetingId}/registrants`,
-        method: 'post',
-        data: {
-          first_name: name,
-          last_name: locality,
-          email,
-          auto_approve: true
         }
       })
-      
-      console.log(response.data)
       onClose()
     } catch(e) {
       console.log('[Error] Add Participant', e)
+      enqueueSnackbar(`${e.response.data.message || e.message}`, { 
+        variant: 'error',
+        anchorOrigin: {
+          vertical: 'top',
+          horizontal: 'center'
+        }
+      })
     }
-    
   }
 
   useEffect(() => {
     if (!isOpen) {
-      setName('')
-      setLocality('')
+      setFirstName('')
+      setLastName('')
       setEmail('')
     }
   }, [ isOpen ])
@@ -67,20 +75,24 @@ export default function AddParticipants({ isOpen, onClose, meetingId }) {
         <DialogTitle>Add New Participant</DialogTitle>
         <DialogContent>
           <TextField
-            id="name"
-            label="Name"
+            id="first_name"
+            label="First Name"
+            required
             fullWidth
-            value={name}
+            value={firstName}
             onChange={onChangeInput}
             autoComplete="off"
+            error={firstNameError}
           />
           <TextField
-            id="locality"
-            label="Locality"
+            id="last_name"
+            label="Last Name"
+            required
             fullWidth
-            value={locality}
+            value={lastName}
             onChange={onChangeInput}
             autoComplete="off"
+            error={lastNameError}
           />
           <TextField
             id="email"
