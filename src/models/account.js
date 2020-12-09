@@ -13,6 +13,9 @@ export default (sequelize) => {
       total_zoom_users: {
         type: DataTypes.INTEGER
       },
+      access_token: {
+        type: DataTypes.STRING
+      },
       account_id: {
         type: DataTypes.STRING,
         primaryKey: true

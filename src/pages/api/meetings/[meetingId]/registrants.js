@@ -90,7 +90,8 @@ export default async (req, res) => {
 
       const data = await ZoomRegistrant.findAll({
         where: {
-          meeting_id: meetingId
+          meeting_id: meetingId,
+          status: status || 'approved'
         }
       })
       
