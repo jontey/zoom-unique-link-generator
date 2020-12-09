@@ -24,8 +24,8 @@ function Me() {
       }).then(({ data }) => {
         if (data?.account?.zoom_client_id) {
           router.push('/admin')
-          setLoading(false)
         }
+        setLoading(false)
       }).catch(({ response, message }) => {
         console.log('[Error] fetchUser', response)
         if (response.status == 404 && response.data.message === 'User not found'){
@@ -39,6 +39,8 @@ function Me() {
             }
           })
         }
+      }).finally(() => {
+        setLoading(false)
       })
     }
   }, [ accessToken ])
