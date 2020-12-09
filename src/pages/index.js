@@ -6,6 +6,8 @@ import Me from '@/components/account/me'
 import { useEffect } from 'react'
 import { useDispatch } from 'react-redux'
 import { setToken } from '@/actions/user'
+import { useSnackbar } from 'notistack'
+import { useRouter } from 'next/router'
 
 const useStyles = makeStyles(() => ({
   login: {
@@ -16,8 +18,21 @@ const useStyles = makeStyles(() => ({
 
 export default function Home() {
   const classes = useStyles()
+  const { enqueueSnackbar } = useSnackbar()
+  const router = useRouter()
   const { user, isAuthenticated, loginWithRedirect, getAccessTokenSilently } = useAuth0()
   const dispatch = useDispatch()
+
+  const { error, error_description } = router.query
+  if (error && error_description) {
+    enqueueSnackbar(`${error_description}`, { 
+      variant: 'error',
+      anchorOrigin: {
+        vertical: 'top',
+        horizontal: 'center'
+      }
+    })
+  }
 
   useEffect(() => {
     if (isAuthenticated) {
