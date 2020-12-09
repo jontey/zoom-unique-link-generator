@@ -3,12 +3,14 @@ import Account from '@/models/account'
 import ZoomUser from '@/models/user'
 import ZoomMeeting from '@/models/meeting'
 import ZoomRegistrant from '@/models/registrant'
+import pg from 'pg'
 
 const db = {}
 
 if (typeof window === 'undefined') {
   const sequelize = new Sequelize({
     dialect: 'postgres',
+    dialectModule: pg,
     host: process.env.POSTGRES_HOST || 'localhost',
     port: process.env.POSTGRES_PORT || 5432,
     database: process.env.POSTGRES_DB || 'zulg',
