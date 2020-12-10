@@ -153,27 +153,17 @@ function Meetings() {
             icon: 'update',
             tooltip: 'Fetch meeting settings',
             onClick: (event, rowData) => fetchMeetingDetails(rowData.meeting_id)
-          // },
-          // {
-          //   icon: 'group',
-          //   tooltip: 'Edit Participants',
-          //   onClick: (event, rowData) => {
-          //     router.push(`/participants/${rowData.id}`)
-          //   }
-          // },
-          // {
-          //   icon: 'settings',
-          //   tooltip: 'Fix Meeting Settings',
-          //   onClick: (event, rowData) => {
-          //     const confirm = window.confirm('Are you sure you want to enable registration for this meeting?')
-          //     if (confirm) {
-          //       fixMeetingPermissions(rowData.id)
-          //     }
-          //   }
           }
         ]}
         options={{
-          actionsColumnIndex: -1
+          actionsColumnIndex: -1,
+          rowStyle: rowData => {
+            const dtEnd = DateTime.fromISO(rowData.start_time).plus({ minutes: rowData.duration })
+            const dtNow = DateTime.local()
+            return {
+              opacity: dtEnd < dtNow ? '0.6' : '1'
+            }
+          }
         }}
         isLoading={loading}
         tableRef={tableRef}
