@@ -44,45 +44,45 @@ function Meetings() {
       headers: {
         authorization: `Bearer ${accessToken}`
       }
-    }).then(({ data }) => {
-      console.log(data)
+    }).then(() => {
       fetchMeetingList()
     })
   }
 
-  // const fixMeetingPermissions = async (meetingId) => {
-  //   try {
-  //     await axios.post('/api/zoom', {
-  //       headers: {
-  //         authorization: `Bearer ${accessToken}`
-  //       },
-  //       url: `/meetings/${meetingId}`,
-  //       method: 'patch',
-  //       data: {
-  //         settings: {
-  //           approval_type: 1,
-  //           registration_type: 1,
-  //           registrants_confirmation_email: false,
-  //           registrants_email_confirmation: false,
-  //           show_share_button: false,
-  //           allow_multiple_devices: false
-  //         }
-  //       }
-  //     })
+  const enableRegistration = async (meetingId) => {
+    try {
+      await axios.patch(`/api/meetings/${meetingId}`, {
+        settings: {
+          approval_type: 1,
+          registration_type: 1,
+          registrants_confirmation_email: false,
+          registrants_email_confirmation: false,
+          show_share_button: false,
+          allow_multiple_devices: false
+        }
+      }, {
+        headers: {
+          authorization: `Bearer ${accessToken}`
+        }
+      })
+      fetchMeetingDetails(meetingId)
       
-  //   } catch (e) {
-  //     console.log('[Error] fixMeetingPermissions', e)
-  //   }
-  // }
+    } catch (e) {
+      console.log('[Error] fixMeetingPermissions', e)
+    }
+  }
 
   useEffect(() => {
     fetchMeetingList()
   }, [])
 
   return (
-    <Layout onBack={onBack}>
+    <Layout
+      title="Meeting List"
+      onBack={onBack}
+    >
       <MaterialTable
-        title="Meeting List"
+        title=""
         columns={[
           {
             title: 'Title',
@@ -153,7 +153,18 @@ function Meetings() {
             icon: 'update',
             tooltip: 'Fetch meeting settings',
             onClick: (event, rowData) => fetchMeetingDetails(rowData.meeting_id)
-          }
+          },
+          rowData => ({
+            icon: 'how_to_reg',
+            tooltip: 'Enable Registration',
+            onClick: (event, rowData) => {
+              const confirm = window.confirm('Are you sure you want to enable registration for this meeting?')
+              if (confirm) {
+                enableRegistration(rowData.meeting_id)
+              }
+            },
+            disabled: [ 0,1 ].includes(rowData.approval_type)
+          })
         ]}
         options={{
           actionsColumnIndex: -1,

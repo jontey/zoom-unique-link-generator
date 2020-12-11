@@ -12,7 +12,7 @@ import { useRouter } from 'next/router'
 const useStyles = makeStyles(() => ({
   login: {
     textAlign: 'center',
-    height: '100vh'
+    height: '99vh'
   }
 }))
 
@@ -48,15 +48,15 @@ export default function Home() {
 
   return (
     <Layout>
-      {!isAuthenticated ? (
-        <div className={classes.login}>
+      <div className={classes.login}>
+        {!isAuthenticated ? (
           <Button onClick={() => loginWithRedirect()} variant="contained" color="primary">
-            Log in to view
+              Log in to view
           </Button>
-        </div>
-      ) : (
-        <Me />
-      )}
+        ) : (
+          <Me />
+        )}
+      </div>
     </Layout>
   )
 }

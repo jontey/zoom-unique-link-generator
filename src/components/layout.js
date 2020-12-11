@@ -1,7 +1,10 @@
 import { useAuth0 } from '@auth0/auth0-react'
-import { AppBar, Button, Paper, Toolbar, Typography } from '@material-ui/core'
+import { AppBar, Button, Drawer, IconButton, List, ListItem, ListItemIcon, ListItemText, Paper, SwipeableDrawer, Toolbar, Typography } from '@material-ui/core'
+import { Group, Menu as MenuIcon, Settings } from '@material-ui/icons'
 import { makeStyles } from '@material-ui/core/styles'
 import Head from 'next/head'
+import { useState } from 'react'
+import { useRouter } from 'next/router'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -9,6 +12,9 @@ const useStyles = makeStyles((theme) => ({
   },
   menuButton: {
     marginRight: theme.spacing(2)
+  },
+  drawer:{
+    width: 250
   },
   title: {
     flexGrow: 1
@@ -18,8 +24,10 @@ const useStyles = makeStyles((theme) => ({
   }
 }))
 
-export default function Layout({ children, onBack }) {
+export default function Layout({ children, title, onBack }) {
+  const router = useRouter()
   const { logout, isAuthenticated } = useAuth0()
+  const [ drawerOpen, setDrawerOpen ] = useState(false)
   const classes = useStyles()
 
   return (
@@ -36,9 +44,37 @@ export default function Layout({ children, onBack }) {
       <div>
         {isAuthenticated && <AppBar position="static">
           <Toolbar>
-            {onBack}
+            {onBack ? onBack : (
+              <>
+                <IconButton
+                  edge="start"
+                  color="inherit"
+                  onClick={() => setDrawerOpen(true)}
+                >
+                  <MenuIcon/>
+                </IconButton>
+                <Drawer
+                  anchor="left"
+                  open={drawerOpen}
+                  onClose={() => setDrawerOpen(false)}
+                >
+                  <div className={classes.drawer}>
+                    <List>
+                      <ListItem button onClick={() => router.push('/admin')}>
+                        <ListItemIcon><Group/></ListItemIcon>
+                        <ListItemText primary="Users"/>
+                      </ListItem>
+                      <ListItem button >
+                        <ListItemIcon><Settings/></ListItemIcon>
+                        <ListItemText primary="Settings"/>
+                      </ListItem>
+                    </List>
+                  </div>
+                </Drawer>
+              </>
+            )}
             <Typography variant="h6" className={classes.title}>
-              
+              {title}
             </Typography>
             <Button className={classes.logout} onClick={() => logout({ returnTo: window.location.origin })}>
               Logout

@@ -117,20 +117,11 @@ function Registrants() {
             tooltip: 'Upload CSV',
             isFreeAction: true,
             onClick: () => setShowAddCSVUpload(true)
-          // {
-          //   icon: 'settings',
-          //   tooltip: 'Fix Meeting Settings',
-          //   onClick: (event, rowData) => {
-          //     const confirm = window.confirm('Are you sure you want to enable registration for this meeting?')
-          //     if (confirm) {
-          //       fixMeetingPermissions(rowData.id)
-          //     }
-          //   }
           }
         ]}
         options={{
           actionsColumnIndex: -1,
-          pageSizeOptions: [ 5, 10, 20, 50, { value: registrantList.length, label: 'All' } ]
+          pageSizeOptions: [ 5, 10, 20, 50, { value: registrantList.length || 0, label: 'All' } ]
         }}
         isLoading={loading}
         tableRef={tableRef}

@@ -1,12 +1,20 @@
-import { CircularProgress, Dialog, DialogContent, DialogTitle, TextField, DialogActions, Button, Backdrop } from '@material-ui/core'
+import { CircularProgress, TextField, Button, Backdrop, Card, CardHeader, CardContent, CardActions, makeStyles } from '@material-ui/core'
 import Axios from 'axios'
 import { useRouter } from 'next/router'
 import { useSnackbar } from 'notistack'
 import { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 
+const useStyles = makeStyles({
+  root: {
+    maxWidth: 800,
+    margin: '0 auto'
+  }
+})
+
 function Me() {
   const router = useRouter()
+  const classes = useStyles()
   const { enqueueSnackbar } = useSnackbar()
   const [ clientId, setClientId ] = useState(undefined)
   const [ clientSecret, setClientSecret ] = useState(undefined)
@@ -95,10 +103,12 @@ function Me() {
         <CircularProgress color="inherit" />
       </Backdrop>
     ): (
-      <Dialog open={true} onSubmit={saveZoomCredentials}>
-        <form>
-          <DialogTitle>Connect your account to Zoom</DialogTitle>
-          <DialogContent>
+      <Card className={classes.root}>
+        <form onSubmit={saveZoomCredentials}>
+          <CardHeader 
+            title="Connect your account to Zoom"
+          />
+          <CardContent>
             <TextField
               id="zoom_client_id"
               label="Zoom API Key"
@@ -118,12 +128,12 @@ function Me() {
               autoComplete="off"
               error={clientSecretError}
             />
-          </DialogContent>
-          <DialogActions>
+          </CardContent>
+          <CardActions>
             <Button type="submit" color="primary">Save</Button>
-          </DialogActions>
+          </CardActions>
         </form>
-      </Dialog>
+      </Card>
     )
   )
 }
