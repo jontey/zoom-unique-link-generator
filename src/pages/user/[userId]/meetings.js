@@ -16,6 +16,7 @@ function Meetings() {
   const accessToken = useSelector(state => state.accessToken)
   const [ meetingList, setMeetingList ] = useState([])
   const [ loading, setLoading ] = useState(true)
+  const [ title, setTitle ] = useState('')
   const tableRef = createRef()
   
   const onBack = <IconButton style={{ color: 'white' }} onClick={() => router.back()}><ArrowBack /></IconButton>
@@ -43,6 +44,9 @@ function Meetings() {
     axios.get(`/api/meetings/${meetingId}/details`, {
       headers: {
         authorization: `Bearer ${accessToken}`
+      },
+      params:{
+        refresh: true
       }
     }).then(() => {
       fetchMeetingList()
@@ -74,15 +78,25 @@ function Meetings() {
 
   useEffect(() => {
     fetchMeetingList()
+    axios.get('/api/users/', {
+      headers: {
+        authorization: `Bearer ${accessToken}`
+      },
+      params: {
+        user_id: userId
+      }
+    }).then(({ data }) => {
+      setTitle(`${data.first_name} ${data.last_name}`)
+    })
   }, [])
 
   return (
     <Layout
-      title="Meeting List"
+      title={title}
       onBack={onBack}
     >
       <MaterialTable
-        title=""
+        title="Meeting List"
         columns={[
           {
             title: 'Title',

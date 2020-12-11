@@ -13,60 +13,68 @@ export default async (req, res) => {
     if (req.method === 'GET') {
       await runMiddleware(req, res, jwtAuthz([ 'write:user' ], { customScopeKey: 'permissions' }))
       
-      const { meetingId } = req.query
+      const { meetingId, refresh } = req.query
 
-      const account = await Account.findOne({
-        attributes: [
-          'zoom_client_id',
-          'zoom_client_secret'
-        ], 
+      if (refresh == 'true') {
+        const account = await Account.findOne({
+          attributes: [
+            'zoom_client_id',
+            'zoom_client_secret'
+          ], 
+          where: {
+            account_id: req.user.sub
+          }
+        })
+
+        const { zoom_client_id, zoom_client_secret } = account
+
+        const token = jwt.sign(
+          {
+            iss: zoom_client_id
+          }, 
+          zoom_client_secret,{
+            expiresIn: '5m',
+            noTimestamp: true
+          }
+        )
+
+        const { data } = await Axios.get(`https://api.zoom.us/v2/meetings/${meetingId}`, {
+          headers: {
+            authorization: `Bearer ${token}`
+          }
+        })
+        
+        const { uuid, id: meeting_id, host_id, topic, type, start_time, duration, agenda, join_url, start_url, password, settings } = data
+
+        await ZoomMeeting.upsert({
+          uuid,
+          meeting_id,
+          host_id,
+          topic,
+          meeting_type: type,
+          start_time,
+          duration,
+          agenda,
+          join_url,
+          start_url,
+          passcode: password,
+          approval_type: settings.approval_type,
+          waiting_room: settings.waiting_room
+        }, {
+          where: {
+            uuid
+          },
+          returning: true
+        })
+      }
+
+      const data = await ZoomMeeting.findAll({
         where: {
-          account_id: req.user.sub
+          meeting_id: meetingId
         }
       })
 
-      const { zoom_client_id, zoom_client_secret } = account
-
-      const token = jwt.sign(
-        {
-          iss: zoom_client_id
-        }, 
-        zoom_client_secret,{
-          expiresIn: '5m',
-          noTimestamp: true
-        }
-      )
-
-      const { data } = await Axios.get(`https://api.zoom.us/v2/meetings/${meetingId}`, {
-        headers: {
-          authorization: `Bearer ${token}`
-        }
-      })
-      
-      const { uuid, id: meeting_id, host_id, topic, type, start_time, duration, agenda, join_url, start_url, password, settings } = data
-
-      await ZoomMeeting.upsert({
-        uuid,
-        meeting_id,
-        host_id,
-        topic,
-        meeting_type: type,
-        start_time,
-        duration,
-        agenda,
-        join_url,
-        start_url,
-        passcode: password,
-        approval_type: settings.approval_type,
-        waiting_room: settings.waiting_room
-      }, {
-        where: {
-          uuid
-        },
-        returning: true
-      })
-
-      return res.json({ ok: true, meeting: data })
+      return res.json({ ok: true, meeting: data[0] })
     } else {
       return res.status(404)
     }

@@ -19,7 +19,19 @@ function Registrants() {
   const [ loading, setLoading ] = useState(true)
   const [ showAddParticipant, setShowAddParticipant ] = useState(false)
   const [ showAddCSVUpload, setShowAddCSVUpload ] = useState(false)
+  const [ title, setTitle ] = useState('')
   const tableRef = createRef()
+
+  useEffect(() => {
+    axios.get(`/api/meetings/${meetingId}/details`, {
+      headers: {
+        authorization: `Bearer ${accessToken}`
+      }
+    })
+      .then(({ data }) => {
+        setTitle(data.meeting.topic)
+      })
+  }, [])
 
   const onBack = <IconButton style={{ color: 'white' }} onClick={() => router.back()}><ArrowBack /></IconButton>
 
@@ -49,7 +61,7 @@ function Registrants() {
   }, [ showAddParticipant, showAddCSVUpload ])
 
   return (
-    <Layout onBack={onBack}>
+    <Layout title={title} onBack={onBack}>
       <MaterialTable
         title="Registrant List"
         columns={[
@@ -120,6 +132,9 @@ function Registrants() {
           }
         ]}
         options={{
+          exportButton: true,
+          exportAllData: true,
+          exportFileName: `Registrants_${meetingId}`,
           actionsColumnIndex: -1,
           pageSizeOptions: [ 5, 10, 20, 50, { value: registrantList.length || 0, label: 'All' } ]
         }}

@@ -13,7 +13,7 @@ export default async (req, res) => {
     if (req.method === 'GET') {
       await runMiddleware(req, res, jwtAuthz([ 'read:user' ], { customScopeKey: 'permissions' }))
       
-      const { refresh } = req.query
+      const { refresh, user_id } = req.query
 
       if (refresh == 'true') {
         const account = await Account.findOne({
@@ -68,6 +68,16 @@ export default async (req, res) => {
             })
           }))
         }
+      }
+
+      if (user_id) {
+        const data = await ZoomUser.findAll({
+          where: {
+            user_id,
+            account_id: req.user.sub
+          }
+        })
+        return res.json(data[0] || {})
       }
 
       const zoomUsers = await ZoomUser.findAll({

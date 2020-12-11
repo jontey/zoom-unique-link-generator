@@ -1,5 +1,5 @@
 import { useAuth0 } from '@auth0/auth0-react'
-import { AppBar, Button, Drawer, IconButton, List, ListItem, ListItemIcon, ListItemText, Paper, SwipeableDrawer, Toolbar, Typography } from '@material-ui/core'
+import { AppBar, Button, Drawer, IconButton, List, ListItem, ListItemIcon, ListItemText, Paper, Toolbar, Typography } from '@material-ui/core'
 import { Group, Menu as MenuIcon, Settings } from '@material-ui/icons'
 import { makeStyles } from '@material-ui/core/styles'
 import Head from 'next/head'
