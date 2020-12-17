@@ -3,27 +3,40 @@ import { createRef, useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import MaterialTable from 'material-table'
 import { useRouter } from 'next/router'
-import { Button, IconButton, Tooltip } from '@material-ui/core'
+import { Backdrop, Button, IconButton, Tooltip, CircularProgress, Typography, makeStyles } from '@material-ui/core'
 import { ArrowBack, AssignmentInd, HourglassEmpty, Lock } from '@material-ui/icons'
 import Layout from '@/components/layout'
 import { withAuthenticationRequired } from '@auth0/auth0-react'
 import Loading from '@/components/loading'
 import { DateTime } from 'luxon'
+import { useSnackbar } from 'notistack'
+
+const useStyles = makeStyles((theme) => ({
+  backdrop: {
+    zIndex: theme.zIndex.modal + 1,
+    color: '#fff'
+  }
+}))
+
 
 function Meetings() {
   const router = useRouter()
+  const classes = useStyles()
   const { userId } = router.query
   const accessToken = useSelector(state => state.accessToken)
+  const { enqueueSnackbar } = useSnackbar()
   const [ meetingList, setMeetingList ] = useState([])
   const [ loading, setLoading ] = useState(true)
   const [ title, setTitle ] = useState('')
+  const [ currentIndex, setCurrentIndex ] = useState(0)
+  const [ fetchAllMeetingDetailsLoading, setFetchAllMeetingDetailsLoading ] = useState(false)
   const tableRef = createRef()
   
   const onBack = <IconButton style={{ color: 'white' }} onClick={() => router.back()}><ArrowBack /></IconButton>
 
   const fetchMeetingList = (refresh = false) => {
     setLoading(true)
-    axios.get(`/api/users/${userId}/meetings`, {
+    return axios.get(`/api/users/${userId}/meetings`, {
       headers: {
         authorization: `Bearer ${accessToken}`
       },
@@ -39,9 +52,9 @@ function Meetings() {
     })
   }
 
-  const fetchMeetingDetails = (meetingId) => {
+  const fetchMeetingDetails = (meetingId, reloadAfter = true) => {
     setLoading(true)
-    axios.get(`/api/meetings/${meetingId}/details`, {
+    return axios.get(`/api/meetings/${meetingId}/details`, {
       headers: {
         authorization: `Bearer ${accessToken}`
       },
@@ -49,8 +62,28 @@ function Meetings() {
         refresh: true
       }
     }).then(() => {
-      fetchMeetingList()
+      if (reloadAfter)
+        fetchMeetingList()
+    }).catch(() => {
+      enqueueSnackbar(`Can't find meeting details for ${meetingList.find(e => e.meeting_id === meetingId).topic}`, { 
+        variant: 'error',
+        anchorOrigin: {
+          vertical: 'top',
+          horizontal: 'center'
+        }
+      })
+
     })
+  }
+
+  const fetchAllMeetingDetails = async () => {
+    setFetchAllMeetingDetailsLoading(true)
+    for (let i=0; i<meetingList.length; i++) {
+      await fetchMeetingDetails(meetingList[i].meeting_id, false)
+      setCurrentIndex(i+1)
+    }
+    setFetchAllMeetingDetailsLoading(false)
+    fetchMeetingList()
   }
 
   const enableRegistration = async (meetingId) => {
@@ -165,8 +198,9 @@ function Meetings() {
           },
           {
             icon: 'update',
-            tooltip: 'Fetch meeting settings',
-            onClick: (event, rowData) => fetchMeetingDetails(rowData.meeting_id)
+            tooltip: 'Fetch all meeting settings',
+            isFreeAction: true,
+            onClick: () => fetchAllMeetingDetails()
           },
           rowData => ({
             icon: 'how_to_reg',
@@ -178,7 +212,12 @@ function Meetings() {
               }
             },
             disabled: [ 0,1 ].includes(rowData.approval_type)
-          })
+          }),
+          {
+            icon: 'update',
+            tooltip: 'Fetch meeting settings',
+            onClick: (event, rowData) => fetchMeetingDetails(rowData.meeting_id)
+          }
         ]}
         options={{
           actionsColumnIndex: -1,
@@ -193,6 +232,14 @@ function Meetings() {
         isLoading={loading}
         tableRef={tableRef}
       />
+      <Backdrop className={classes.backdrop} open={fetchAllMeetingDetailsLoading}>
+        <>
+          <CircularProgress color="inherit" />
+          <Typography>
+            Fetching {currentIndex} of {meetingList.length}
+          </Typography>
+        </>
+      </Backdrop>
     </Layout>
   )
 }
