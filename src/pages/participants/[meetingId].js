@@ -5,9 +5,9 @@ import MaterialTable from 'material-table'
 import { useRouter } from 'next/router'
 import { createRef, useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
-import Layout from '../../components/layout'
-import AddParticipants from '../../components/participants/add'
-import CSVUpload from '../../components/participants/csv_upload'
+import Layout from '@/components/layout'
+import AddParticipants from '@/components/participants/add'
+import CSVUpload from '@/components/participants/csv_upload'
 
 function Participants() {
   const router = useRouter()
@@ -18,7 +18,7 @@ function Participants() {
   const [ showAddCSVUpload, setShowAddCSVUpload ] = useState(false)
   const tableRef = createRef()
 
-  const onBack = <IconButton style={{ color: 'white' }} onClick={() => router.push('/')}><ArrowBack /></IconButton>
+  const onBack = <IconButton style={{ color: 'white' }} onClick={() => router.back()}><ArrowBack /></IconButton>
 
   useEffect(() => {
     if(!showAddParticipant && !showAddCSVUpload) {

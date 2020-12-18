@@ -4,7 +4,7 @@ import { useRouter } from 'next/router'
 import axios from 'axios'
 import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { setToken } from '../../src/actions/user'
+import { setToken } from '@/actions/user'
 
 export default function Authorize ({ REDIRECT_URL }) {
   const router = useRouter()

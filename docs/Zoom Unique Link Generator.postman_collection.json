@@ -1,0 +1,916 @@
+{
+	"info": {
+		"_postman_id": "d2789d93-6739-499b-ad55-8966fc28fa08",
+		"name": "Zoom Unique Link Generator",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Users",
+			"item": [
+				{
+					"name": "Get All Users",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{ACCESS_TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/api/users",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"api",
+								"users"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Get Users",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{BASE_URL}}/api/users",
+									"host": [
+										"{{BASE_URL}}"
+									],
+									"path": [
+										"api",
+										"users"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "ETag",
+									"value": "\"df3-9DhLcLxnxW4riIVdKhNKtvX6dxQ\""
+								},
+								{
+									"key": "Vary",
+									"value": "Accept-Encoding"
+								},
+								{
+									"key": "Content-Encoding",
+									"value": "gzip"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 09 Dec 2020 14:31:37 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"users\": [\n        {\n            \"id\": 1,\n            \"user_id\": \"bbbbbbbbbb\",\n            \"first_name\": \"Tim\",\n            \"last_name\": \"Ooi\",\n            \"email\": \"tim.ooi2021@gmail.com\",\n            \"type\": 2,\n            \"pmi\": \"123456789\",\n            \"account_id\": \"google-oauth2|106192934431428887242\",\n            \"createdAt\": \"2020-12-07T14:34:06.622Z\",\n            \"updatedAt\": \"2020-12-07T14:34:06.622Z\"\n        },\n        {\n            \"id\": 2,\n            \"user_id\": \"aaaaaaaa\",\n            \"first_name\": \"David\",\n            \"last_name\": \"Tey\",\n            \"email\": \"davidtey88@gmail.com\",\n            \"type\": 2,\n            \"pmi\": \"123456789\",\n            \"account_id\": \"google-oauth2|106192934431428887242\",\n            \"createdAt\": \"2020-12-07T14:34:06.622Z\",\n            \"updatedAt\": \"2020-12-07T14:34:06.622Z\"\n        }\n    ]\n}"
+						}
+					]
+				},
+				{
+					"name": "Get User Meetings",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{ACCESS_TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/api/users/:userId/meetings?refresh=true",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"api",
+								"users",
+								":userId",
+								"meetings"
+							],
+							"query": [
+								{
+									"key": "refresh",
+									"value": "true",
+									"description": "Setting to `true` will fetch latest data from Zoom directly"
+								}
+							],
+							"variable": [
+								{
+									"key": "userId",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Get User Meetings",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{BASE_URL}}/api/users/:userId/meetings?refresh=true",
+									"host": [
+										"{{BASE_URL}}"
+									],
+									"path": [
+										"api",
+										"users",
+										":userId",
+										"meetings"
+									],
+									"query": [
+										{
+											"key": "refresh",
+											"value": "true",
+											"description": "Setting to `true` will fetch latest data from Zoom directly"
+										}
+									],
+									"variable": [
+										{
+											"key": "userId",
+											"value": "78Tm_d6LSduPgSdf8H3vnQ"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "ETag",
+									"value": "\"1e26-AaorczopWhs0PKgL1o5vw0p6IVQ\""
+								},
+								{
+									"key": "Vary",
+									"value": "Accept-Encoding"
+								},
+								{
+									"key": "Content-Encoding",
+									"value": "gzip"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 09 Dec 2020 14:35:30 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								}
+							],
+							"cookie": [],
+							"body": "[\n    {\n        \"uuid\": \"aaaaaaaaaaaaaaa\",\n        \"meeting_id\": \"123456789\",\n        \"host_id\": \"78Tm_d6LSduPgSdf8H3vnQ\",\n        \"topic\": \"Friday group meeting\",\n        \"agenda\": null,\n        \"start_time\": \"2020-11-13T12:00:00.000Z\",\n        \"duration\": 60,\n        \"meeting_type\": 2,\n        \"start_url\": null,\n        \"join_url\": \"https://us02web.zoom.us/j/123456789?pwd=K2FSdVpIbGhOTlJybmx6S0Frc1NpQT09\",\n        \"passcode\": null,\n        \"approval_type\": null,\n        \"waiting_room\": null,\n        \"createdAt\": \"2020-12-09T14:35:30.573Z\",\n        \"updatedAt\": \"2020-12-09T14:35:30.573Z\"\n    },\n    {\n        \"uuid\": \"aaaaaaaaaaaaaaa\",\n        \"meeting_id\": \"123456789\",\n        \"host_id\": \"78Tm_d6LSduPgSdf8H3vnQ\",\n        \"topic\": \"Lord's Day meeting\",\n        \"agenda\": null,\n        \"start_time\": \"2020-11-15T02:00:00.000Z\",\n        \"duration\": 120,\n        \"meeting_type\": 2,\n        \"start_url\": null,\n        \"join_url\": \"https://us02web.zoom.us/j/123456789?pwd=eWRmMXExSjhyQ1dxRE9BdCs4blFkUT09\",\n        \"passcode\": null,\n        \"approval_type\": null,\n        \"waiting_room\": null,\n        \"createdAt\": \"2020-12-09T14:35:30.573Z\",\n        \"updatedAt\": \"2020-12-09T14:35:30.573Z\"\n    }\n]"
+						}
+					]
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Meetings",
+			"item": [
+				{
+					"name": "Get Meeting Details",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{ACCESS_TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/api/meetings/:meetingId/details?refresh=true",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"api",
+								"meetings",
+								":meetingId",
+								"details"
+							],
+							"query": [
+								{
+									"key": "refresh",
+									"value": "true",
+									"description": "Setting to `true` will fetch latest data from Zoom directly"
+								}
+							],
+							"variable": [
+								{
+									"key": "meetingId",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Get Meeting Details",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{BASE_URL}}/api/meetings/:meetingId/details?refresh=true",
+									"host": [
+										"{{BASE_URL}}"
+									],
+									"path": [
+										"api",
+										"meetings",
+										":meetingId",
+										"details"
+									],
+									"query": [
+										{
+											"key": "refresh",
+											"value": "true",
+											"description": "Setting to `true` will fetch latest data from Zoom directly"
+										}
+									],
+									"variable": [
+										{
+											"key": "meetingId",
+											"value": "86066753725"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "ETag",
+									"value": "\"930-c/nd1i6C4OZYwJeLAn88FpKnVMg\""
+								},
+								{
+									"key": "Vary",
+									"value": "Accept-Encoding"
+								},
+								{
+									"key": "Content-Encoding",
+									"value": "gzip"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 09 Dec 2020 14:40:00 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"ok\": true,\n    \"meeting\": {\n        \"uuid\": \"aaaaaaaaaaaaaaa\",\n        \"id\": 123456789,\n        \"host_id\": \"78Tm_d6LSduPgSdf8H3vnQ\",\n        \"host_email\": \"tim.ooi2021@gmail.com\",\n        \"assistant_id\": \"\",\n        \"topic\": \"Friday group meeting\",\n        \"type\": 2,\n        \"status\": \"waiting\",\n        \"start_time\": \"2020-11-13T12:00:00Z\",\n        \"duration\": 60,\n        \"timezone\": \"Asia/Singapore\",\n        \"created_at\": \"2020-11-13T09:42:32Z\",\n        \"start_url\": \"https://us02web.zoom.us/s/123456789?zak=eyJ6bV9za20iOiJ6bV9vMm0iLCJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJjbGllbnQiLCJ1aWQiOiI3OFRtX2Q2TFNkdVBnU2RmOEgzdm5RIiwiaXNzIjoid2ViIiwic3R5IjoxMDAsIndjZCI6InVzMDIiLCJjbHQiOjAsInN0ayI6ImVodHlmZ0I2Nk9QcFBkOGxkMExYc1VFY21tcnlIX1FybjR6WlVhWlBUaVkuQmdVZ1Z6TktTelpwTlVoblVFRnJPREJLTms5MldVdFpaemx6WWtzME0xQkZSVnBBT1dJMU16YzVORGMwWkRBek1EUTFaV05rTURRNU9HRTJORFU1WmpZME5HRm1NV1UxTW1WaFpEYzNPVE15WkRneVl6RXpPRFEzWXpOaE9HWmlaR0UwWlFBTU0wTkNRWFZ2YVZsVE0zTTlBQVIxY3pBeSIsImV4cCI6MTYwNzUzMjAwMCwiaWF0IjoxNjA3NTI0ODAwLCJhaWQiOiJLUlNoeFJDcFRIbU5BbkdmYi1yWHJnIiwiY2lkIjoiIn0.9wk7krKWBEnQulY8wtTw2h4lRtBTuYHXpTNnu6xf0gQ\",\n        \"join_url\": \"https://us02web.zoom.us/j/123456789?pwd=K2FSdVpIbGhOTlJybmx6S0Frc1NpQT09\",\n        \"password\": \"123456789\",\n        \"h323_password\": \"123456789\",\n        \"pstn_password\": \"123456789\",\n        \"encrypted_password\": \"K2FSdVpIbGhOTlJybmx6S0Frc1NpQT09\",\n        \"settings\": {\n            \"host_video\": false,\n            \"participant_video\": false,\n            \"cn_meeting\": false,\n            \"in_meeting\": false,\n            \"join_before_host\": false,\n            \"mute_upon_entry\": false,\n            \"watermark\": false,\n            \"use_pmi\": false,\n            \"approval_type\": 2,\n            \"audio\": \"both\",\n            \"auto_recording\": \"none\",\n            \"enforce_login\": false,\n            \"enforce_login_domains\": \"\",\n            \"alternative_hosts\": \"\",\n            \"close_registration\": false,\n            \"show_share_button\": false,\n            \"allow_multiple_devices\": false,\n            \"registrants_confirmation_email\": true,\n            \"waiting_room\": true,\n            \"request_permission_to_unmute_participants\": false,\n            \"global_dial_in_countries\": [\n                \"MY\"\n            ],\n            \"global_dial_in_numbers\": [\n                {\n                    \"country_name\": \"Malaysia\",\n                    \"number\": \"+60 392121727\",\n                    \"type\": \"toll\",\n                    \"country\": \"MY\"\n                },\n                {\n                    \"country_name\": \"Malaysia\",\n                    \"number\": \"+60 330992229\",\n                    \"type\": \"toll\",\n                    \"country\": \"MY\"\n                },\n                {\n                    \"country_name\": \"Malaysia\",\n                    \"number\": \"+60 377244079\",\n                    \"type\": \"toll\",\n                    \"country\": \"MY\"\n                },\n                {\n                    \"country_name\": \"Malaysia\",\n                    \"number\": \"+60 377244080\",\n                    \"type\": \"toll\",\n                    \"country\": \"MY\"\n                }\n            ],\n            \"registrants_email_notification\": true,\n            \"meeting_authentication\": false,\n            \"additional_data_center_regions\": [],\n            \"encryption_type\": \"enhanced_encryption\",\n            \"language_interpretation\": {\n                \"enable\": false\n            },\n            \"approved_or_denied_countries_or_regions\": {\n                \"enable\": false\n            }\n        }\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Get Meeting Registrants",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{ACCESS_TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/api/meetings/:meetingId/registrants?refresh=true&status=approved",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"api",
+								"meetings",
+								":meetingId",
+								"registrants"
+							],
+							"query": [
+								{
+									"key": "refresh",
+									"value": "true",
+									"description": "Setting to `true` will fetch latest data from Zoom directly"
+								},
+								{
+									"key": "status",
+									"value": "approved",
+									"description": "One of `approved`, `pending`, `denied`"
+								}
+							],
+							"variable": [
+								{
+									"key": "meetingId",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Get Meeting Details",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{BASE_URL}}/api/meetings/:meetingId/details?refresh=true",
+									"host": [
+										"{{BASE_URL}}"
+									],
+									"path": [
+										"api",
+										"meetings",
+										":meetingId",
+										"details"
+									],
+									"query": [
+										{
+											"key": "refresh",
+											"value": "true",
+											"description": "Setting to `true` will fetch latest data from Zoom directly"
+										}
+									],
+									"variable": [
+										{
+											"key": "meetingId",
+											"value": "86066753725"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "ETag",
+									"value": "\"930-c/nd1i6C4OZYwJeLAn88FpKnVMg\""
+								},
+								{
+									"key": "Vary",
+									"value": "Accept-Encoding"
+								},
+								{
+									"key": "Content-Encoding",
+									"value": "gzip"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 09 Dec 2020 14:40:00 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"ok\": true,\n    \"meeting\": {\n        \"uuid\": \"aaaaaaaaaaaaaaa\",\n        \"id\": 123456789,\n        \"host_id\": \"78Tm_d6LSduPgSdf8H3vnQ\",\n        \"host_email\": \"tim.ooi2021@gmail.com\",\n        \"assistant_id\": \"\",\n        \"topic\": \"Friday group meeting\",\n        \"type\": 2,\n        \"status\": \"waiting\",\n        \"start_time\": \"2020-11-13T12:00:00Z\",\n        \"duration\": 60,\n        \"timezone\": \"Asia/Singapore\",\n        \"created_at\": \"2020-11-13T09:42:32Z\",\n        \"start_url\": \"https://us02web.zoom.us/s/123456789?zak=eyJ6bV9za20iOiJ6bV9vMm0iLCJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJjbGllbnQiLCJ1aWQiOiI3OFRtX2Q2TFNkdVBnU2RmOEgzdm5RIiwiaXNzIjoid2ViIiwic3R5IjoxMDAsIndjZCI6InVzMDIiLCJjbHQiOjAsInN0ayI6ImVodHlmZ0I2Nk9QcFBkOGxkMExYc1VFY21tcnlIX1FybjR6WlVhWlBUaVkuQmdVZ1Z6TktTelpwTlVoblVFRnJPREJLTms5MldVdFpaemx6WWtzME0xQkZSVnBBT1dJMU16YzVORGMwWkRBek1EUTFaV05rTURRNU9HRTJORFU1WmpZME5HRm1NV1UxTW1WaFpEYzNPVE15WkRneVl6RXpPRFEzWXpOaE9HWmlaR0UwWlFBTU0wTkNRWFZ2YVZsVE0zTTlBQVIxY3pBeSIsImV4cCI6MTYwNzUzMjAwMCwiaWF0IjoxNjA3NTI0ODAwLCJhaWQiOiJLUlNoeFJDcFRIbU5BbkdmYi1yWHJnIiwiY2lkIjoiIn0.9wk7krKWBEnQulY8wtTw2h4lRtBTuYHXpTNnu6xf0gQ\",\n        \"join_url\": \"https://us02web.zoom.us/j/123456789?pwd=K2FSdVpIbGhOTlJybmx6S0Frc1NpQT09\",\n        \"password\": \"123456789\",\n        \"h323_password\": \"123456789\",\n        \"pstn_password\": \"123456789\",\n        \"encrypted_password\": \"K2FSdVpIbGhOTlJybmx6S0Frc1NpQT09\",\n        \"settings\": {\n            \"host_video\": false,\n            \"participant_video\": false,\n            \"cn_meeting\": false,\n            \"in_meeting\": false,\n            \"join_before_host\": false,\n            \"mute_upon_entry\": false,\n            \"watermark\": false,\n            \"use_pmi\": false,\n            \"approval_type\": 2,\n            \"audio\": \"both\",\n            \"auto_recording\": \"none\",\n            \"enforce_login\": false,\n            \"enforce_login_domains\": \"\",\n            \"alternative_hosts\": \"\",\n            \"close_registration\": false,\n            \"show_share_button\": false,\n            \"allow_multiple_devices\": false,\n            \"registrants_confirmation_email\": true,\n            \"waiting_room\": true,\n            \"request_permission_to_unmute_participants\": false,\n            \"global_dial_in_countries\": [\n                \"MY\"\n            ],\n            \"global_dial_in_numbers\": [\n                {\n                    \"country_name\": \"Malaysia\",\n                    \"number\": \"+60 392121727\",\n                    \"type\": \"toll\",\n                    \"country\": \"MY\"\n                },\n                {\n                    \"country_name\": \"Malaysia\",\n                    \"number\": \"+60 330992229\",\n                    \"type\": \"toll\",\n                    \"country\": \"MY\"\n                },\n                {\n                    \"country_name\": \"Malaysia\",\n                    \"number\": \"+60 377244079\",\n                    \"type\": \"toll\",\n                    \"country\": \"MY\"\n                },\n                {\n                    \"country_name\": \"Malaysia\",\n                    \"number\": \"+60 377244080\",\n                    \"type\": \"toll\",\n                    \"country\": \"MY\"\n                }\n            ],\n            \"registrants_email_notification\": true,\n            \"meeting_authentication\": false,\n            \"additional_data_center_regions\": [],\n            \"encryption_type\": \"enhanced_encryption\",\n            \"language_interpretation\": {\n                \"enable\": false\n            },\n            \"approved_or_denied_countries_or_regions\": {\n                \"enable\": false\n            }\n        }\n    }\n}"
+						},
+						{
+							"name": "Get Meeting Registrants",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{BASE_URL}}/api/meetings/:meetingId/registrants?refresh=true",
+									"host": [
+										"{{BASE_URL}}"
+									],
+									"path": [
+										"api",
+										"meetings",
+										":meetingId",
+										"registrants"
+									],
+									"query": [
+										{
+											"key": "refresh",
+											"value": "true",
+											"description": "Setting to `true` will fetch latest data from Zoom directly"
+										}
+									],
+									"variable": [
+										{
+											"key": "meetingId",
+											"value": "83445007328"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "ETag",
+									"value": "\"4c51-c98aR+pMdxV8aYD5zIB798wofuU\""
+								},
+								{
+									"key": "Vary",
+									"value": "Accept-Encoding"
+								},
+								{
+									"key": "Content-Encoding",
+									"value": "gzip"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 09 Dec 2020 14:43:04 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								}
+							],
+							"cookie": [],
+							"body": "[\n    {\n        \"registrant_id\": \"2zWsP_lBRf-VfSvAVrA3-Q\",\n        \"email\": \"sciph.elwinyap@stnl.my\",\n        \"first_name\": \"SCIPH\",\n        \"last_name\": \"Elwin Yap\",\n        \"status\": \"approved\",\n        \"join_url\": \"https://us02web.zoom.us/w/83445007328?tk=TmJcGF4L-FFAQfCiCzaXRzEr8OhDaw-u1ZgNtJ5izHg.DQIAAAATbbXD4BYyeldzUF9sQlJmLVZmU3ZBVnJBMy1RAAAAAAAAAAAAAAAAAAAAAAAAAAAA&pwd=VHhUaUtEOHlLdnd1b3lueVpibm1adz09\",\n        \"meeting_id\": \"83445007328\",\n        \"createdAt\": \"2020-12-09T14:42:53.036Z\",\n        \"updatedAt\": \"2020-12-09T14:43:04.771Z\"\n    },\n    {\n        \"registrant_id\": \"fczXrW9SS3S5Xm4ItpmtNg\",\n        \"email\": \"bekl.teckhin@stnl.my\",\n        \"first_name\": \"BEKL\",\n        \"last_name\": \"Teck Hin\",\n        \"status\": \"approved\",\n        \"join_url\": \"https://us02web.zoom.us/w/83445007328?tk=S4jAdLm2naoiEworOX8lE7i8Mau66ROVWRChDZQ4O1g.DQIAAAATbbXD4BZmY3pYclc5U1MzUzVYbTRJdHBtdE5nAAAAAAAAAAAAAAAAAAAAAAAAAAAA&pwd=VHhUaUtEOHlLdnd1b3lueVpibm1adz09\",\n        \"meeting_id\": \"83445007328\",\n        \"createdAt\": \"2020-12-09T14:42:53.036Z\",\n        \"updatedAt\": \"2020-12-09T14:43:04.771Z\"\n    },\n    {\n        \"registrant_id\": \"fZ3Yu5YyTvaYJNgLVNR8xA\",\n        \"email\": \"bcpj.weijie@stnl.my\",\n        \"first_name\": \"BCPJ\",\n        \"last_name\": \"Wei Jie\",\n        \"status\": \"approved\",\n        \"join_url\": \"https://us02web.zoom.us/w/83445007328?tk=HaUmE93WxCT_SebZuzweAls7nCaFJVRV-fXuOM4btxA.DQIAAAATbbXD4BZmWjNZdTVZeVR2YVlKTmdMVk5SOHhBAAAAAAAAAAAAAAAAAAAAAAAAAAAA&pwd=VHhUaUtEOHlLdnd1b3lueVpibm1adz09\",\n        \"meeting_id\": \"83445007328\",\n        \"createdAt\": \"2020-12-09T14:42:53.036Z\",\n        \"updatedAt\": \"2020-12-09T14:43:04.771Z\"\n    },\n    {\n        \"registrant_id\": \"DgId5_ytRDeLHalhAeDIkw\",\n        \"email\": \"choongwanen.ipoh@stnl.my\",\n        \"first_name\": \"Choong Wan En\",\n        \"last_name\": \"Ipoh\",\n        \"status\": \"approved\",\n        \"join_url\": \"https://us02web.zoom.us/w/83445007328?tk=yiP51d216SzCIlYWcwpP1DggRFNrWC-ffPFJ6NuQ2HQ.DQIAAAATbbXD4BZEZ0lkNV95dFJEZUxIYWxoQWVESWt3AAAAAAAAAAAAAAAAAAAAAAAAAAAA&pwd=VHhUaUtEOHlLdnd1b3lueVpibm1adz09\",\n        \"meeting_id\": \"83445007328\",\n        \"createdAt\": \"2020-12-09T14:42:53.037Z\",\n        \"updatedAt\": \"2020-12-09T14:43:04.771Z\"\n    },\n    {\n        \"registrant_id\": \"PTIGD4uMR6C_zbEAFeNOfA\",\n        \"email\": \"chongxuanyang.kluang@stnl.my\",\n        \"first_name\": \"Chong Xuan Yang\",\n        \"last_name\": \"Kluang\",\n        \"status\": \"approved\",\n        \"join_url\": \"https://us02web.zoom.us/w/83445007328?tk=ufC-aSg8uQh0wqzdjcqlVuphZhhChyWhodg-K-rk5WU.DQIAAAATbbXD4BZQVElHRDR1TVI2Q196YkVBRmVOT2ZBAAAAAAAAAAAAAAAAAAAAAAAAAAAA&pwd=VHhUaUtEOHlLdnd1b3lueVpibm1adz09\",\n        \"meeting_id\": \"83445007328\",\n        \"createdAt\": \"2020-12-09T14:42:53.037Z\",\n        \"updatedAt\": \"2020-12-09T14:43:04.771Z\"\n    },\n    {\n        \"registrant_id\": \"6dAEbQV2SuOe0Z_dgoyzhg\",\n        \"email\": \"chloechanyenyee.subangjaya@stnl.my\",\n        \"first_name\": \"Chloe Chan Yen Yee\",\n        \"last_name\": \"Subang Jaya\",\n        \"status\": \"approved\",\n        \"join_url\": \"https://us02web.zoom.us/w/83445007328?tk=QJxrFYi4rbbyMwKfUk8IiO3kR6WmVyS3Tl1ybUYYhcA.DQIAAAATbbXD4BY2ZEFFYlFWMlN1T2UwWl9kZ295emhnAAAAAAAAAAAAAAAAAAAAAAAAAAAA&pwd=VHhUaUtEOHlLdnd1b3lueVpibm1adz09\",\n        \"meeting_id\": \"83445007328\",\n        \"createdAt\": \"2020-12-09T14:42:53.037Z\",\n        \"updatedAt\": \"2020-12-09T14:43:04.771Z\"\n    },\n    {\n        \"registrant_id\": \"TExmDF2VQTegajc51IMeaQ\",\n        \"email\": \"chewhungchan.manjung@stnl.my\",\n        \"first_name\": \"Chew Hung Chan\",\n        \"last_name\": \"Manjung\",\n        \"status\": \"approved\",\n        \"join_url\": \"https://us02web.zoom.us/w/83445007328?tk=Yl2ba42iyNPdTK7XxDFhY9EmpQLOEwOEkBLHOfnbB6Q.DQIAAAATbbXD4BZURXhtREYyVlFUZWdhamM1MUlNZWFRAAAAAAAAAAAAAAAAAAAAAAAAAAAA&pwd=VHhUaUtEOHlLdnd1b3lueVpibm1adz09\",\n        \"meeting_id\": \"83445007328\",\n        \"createdAt\": \"2020-12-09T14:42:53.037Z\",\n        \"updatedAt\": \"2020-12-09T14:43:04.771Z\"\n    },\n    {\n        \"registrant_id\": \"fMKmSMYxRXap8amVWCVjBg\",\n        \"email\": \"charmainelim.penang@stnl.my\",\n        \"first_name\": \"Charmaine Lim\",\n        \"last_name\": \"Penang\",\n        \"status\": \"approved\",\n        \"join_url\": \"https://us02web.zoom.us/w/83445007328?tk=VszMh9EKzWb7l6gW0b7Ft256uSyfBGhZ4d1lL-3HjZc.DQIAAAATbbXD4BZmTUttU01ZeFJYYXA4YW1WV0NWakJnAAAAAAAAAAAAAAAAAAAAAAAAAAAA&pwd=VHhUaUtEOHlLdnd1b3lueVpibm1adz09\",\n        \"meeting_id\": \"83445007328\",\n        \"createdAt\": \"2020-12-09T14:42:53.037Z\",\n        \"updatedAt\": \"2020-12-09T14:43:04.771Z\"\n    },\n    {\n        \"registrant_id\": \"TLtcKqMLTXGnicBxCWPprA\",\n        \"email\": \"celinewongxinrou.pj@stnl.my\",\n        \"first_name\": \"Celine Wong Xin Rou\",\n        \"last_name\": \"PJ\",\n        \"status\": \"approved\",\n        \"join_url\": \"https://us02web.zoom.us/w/83445007328?tk=uDkxm_CLHLe1SBHTfLMUfCalswWkxp4nBj5tuOURpPw.DQIAAAATbbXD4BZUTHRjS3FNTFRYR25pY0J4Q1dQcHJBAAAAAAAAAAAAAAAAAAAAAAAAAAAA&pwd=VHhUaUtEOHlLdnd1b3lueVpibm1adz09\",\n        \"meeting_id\": \"83445007328\",\n        \"createdAt\": \"2020-12-09T14:42:53.037Z\",\n        \"updatedAt\": \"2020-12-09T14:43:04.771Z\"\n    },\n    {\n        \"registrant_id\": \"-LXbSJyaSeGA6N_ccqzb4A\",\n        \"email\": \"celineganeikwen.jb@stnl.my\",\n        \"first_name\": \"Celine Gan Eik Wen\",\n        \"last_name\": \"JB\",\n        \"status\": \"approved\",\n        \"join_url\": \"https://us02web.zoom.us/w/83445007328?tk=WnOhYPcNVY9UiAOb4v3s7aqxeFrJ2IYrltzwAP6-g6w.DQIAAAATbbXD4BYtTFhiU0p5YVNlR0E2Tl9jY3F6YjRBAAAAAAAAAAAAAAAAAAAAAAAAAAAA&pwd=VHhUaUtEOHlLdnd1b3lueVpibm1adz09\",\n        \"meeting_id\": \"83445007328\",\n        \"createdAt\": \"2020-12-09T14:42:53.037Z\",\n        \"updatedAt\": \"2020-12-09T14:43:04.771Z\"\n    },\n    {\n        \"registrant_id\": \"ugi9bE8ySyOMnSyXgxDQuQ\",\n        \"email\": \"caylielimcheahenn.kluang@stnl.my\",\n        \"first_name\": \"Caylie Lim Cheah Enn\",\n        \"last_name\": \"Kluang\",\n        \"status\": \"approved\",\n        \"join_url\": \"https://us02web.zoom.us/w/83445007328?tk=pl2GXYTjMRsDisbIzaxjrLGiKiKGFC1oP3Of2GZKsOA.DQIAAAATbbXD4BZ1Z2k5YkU4eVN5T01uU3lYZ3hEUXVRAAAAAAAAAAAAAAAAAAAAAAAAAAAA&pwd=VHhUaUtEOHlLdnd1b3lueVpibm1adz09\",\n        \"meeting_id\": \"83445007328\",\n        \"createdAt\": \"2020-12-09T14:42:53.037Z\",\n        \"updatedAt\": \"2020-12-09T14:43:04.771Z\"\n    },\n    {\n        \"registrant_id\": \"2W_oOTJ2R-ax2YC_DxS4iQ\",\n        \"email\": \"beryldang.manjung@stnl.my\",\n        \"first_name\": \"Beryl Dang\",\n        \"last_name\": \"Manjung\",\n        \"status\": \"approved\",\n        \"join_url\": \"https://us02web.zoom.us/w/83445007328?tk=zomB305hZyEzJ8XLP0HcmmoJjKaw-pqu1Qft19F_g-I.DQIAAAATbbXD4BYyV19vT1RKMlItYXgyWUNfRHhTNGlRAAAAAAAAAAAAAAAAAAAAAAAAAAAA&pwd=VHhUaUtEOHlLdnd1b3lueVpibm1adz09\",\n        \"meeting_id\": \"83445007328\",\n        \"createdAt\": \"2020-12-09T14:42:53.037Z\",\n        \"updatedAt\": \"2020-12-09T14:43:04.771Z\"\n    },\n    {\n        \"registrant_id\": \"XkhZsNqsQjm6rDV3uKQ4hA\",\n        \"email\": \"angelinedangzijing.manjung@stnl.my\",\n        \"first_name\": \"Angeline Dang Zi Jing\",\n        \"last_name\": \"Manjung\",\n        \"status\": \"approved\",\n        \"join_url\": \"https://us02web.zoom.us/w/83445007328?tk=v2xU1BdcvUAd1cEQVMxOHPBDPwpuy25C7Ptdfk3qAlo.DQIAAAATbbXD4BZYa2hac05xc1FqbTZyRFYzdUtRNGhBAAAAAAAAAAAAAAAAAAAAAAAAAAAA&pwd=VHhUaUtEOHlLdnd1b3lueVpibm1adz09\",\n        \"meeting_id\": \"83445007328\",\n        \"createdAt\": \"2020-12-09T14:42:53.037Z\",\n        \"updatedAt\": \"2020-12-09T14:43:04.771Z\"\n    },\n    {\n        \"registrant_id\": \"eMiI83ILSfOMrHxbhUJYZQ\",\n        \"email\": \"angkhengyen.subangjaya@stnl.my\",\n        \"first_name\": \"Ang Kheng Yen\",\n        \"last_name\": \"Subang Jaya\",\n        \"status\": \"approved\",\n        \"join_url\": \"https://us02web.zoom.us/w/83445007328?tk=rSrQeqzqp844EDXPmRkgrGhwJIk-v7N7roCAcZtvzII.DQIAAAATbbXD4BZlTWlJODNJTFNmT01ySHhiaFVKWVpRAAAAAAAAAAAAAAAAAAAAAAAAAAAA&pwd=VHhUaUtEOHlLdnd1b3lueVpibm1adz09\",\n        \"meeting_id\": \"83445007328\",\n        \"createdAt\": \"2020-12-09T14:42:53.037Z\",\n        \"updatedAt\": \"2020-12-09T14:43:04.771Z\"\n    },\n    {\n        \"registrant_id\": \"iZOTB7ToSJe5rse7FqcZHg\",\n        \"email\": \"test12.sj@stnl.my\",\n        \"first_name\": \"Test12\",\n        \"last_name\": \"SJ\",\n        \"status\": \"approved\",\n        \"join_url\": \"https://us02web.zoom.us/w/83445007328?tk=48DF3pnebtlwikO_AL5leXt1Twn8xE1hsbOvWgKh4kI.DQIAAAATbbXD4BZpWk9UQjdUb1NKZTVyc2U3RnFjWkhnAAAAAAAAAAAAAAAAAAAAAAAAAAAA&pwd=VHhUaUtEOHlLdnd1b3lueVpibm1adz09\",\n        \"meeting_id\": \"83445007328\",\n        \"createdAt\": \"2020-12-09T14:42:53.037Z\",\n        \"updatedAt\": \"2020-12-09T14:43:04.771Z\"\n    },\n    {\n        \"registrant_id\": \"K2Vop2PITcWuEzzR2O936g\",\n        \"email\": \"test10.sj@stnl.my\",\n        \"first_name\": \"Test10\",\n        \"last_name\": \"SJ\",\n        \"status\": \"approved\",\n        \"join_url\": \"https://us02web.zoom.us/w/83445007328?tk=H6wBXsBt4WNxnQ6CIDfHhiaorv6Tyi4ny-efLQosNxY.DQIAAAATbbXD4BZLMlZvcDJQSVRjV3VFenpSMk85MzZnAAAAAAAAAAAAAAAAAAAAAAAAAAAA&pwd=VHhUaUtEOHlLdnd1b3lueVpibm1adz09\",\n        \"meeting_id\": \"83445007328\",\n        \"createdAt\": \"2020-12-09T14:42:53.037Z\",\n        \"updatedAt\": \"2020-12-09T14:43:04.771Z\"\n    },\n    {\n        \"registrant_id\": \"iJQJRS2cQoylMbgj3Aq2Wg\",\n        \"email\": \"test5.sj@stnl.my\",\n        \"first_name\": \"Test5\",\n        \"last_name\": \"SJ\",\n        \"status\": \"approved\",\n        \"join_url\": \"https://us02web.zoom.us/w/83445007328?tk=Mp4_xUynZt5K6p7x1DctTrpp1DnnZpUhrGi7Bx1KYdw.DQIAAAATbbXD4BZpSlFKUlMyY1FveWxNYmdqM0FxMldnAAAAAAAAAAAAAAAAAAAAAAAAAAAA&pwd=VHhUaUtEOHlLdnd1b3lueVpibm1adz09\",\n        \"meeting_id\": \"83445007328\",\n        \"createdAt\": \"2020-12-09T14:42:53.038Z\",\n        \"updatedAt\": \"2020-12-09T14:43:04.772Z\"\n    },\n    {\n        \"registrant_id\": \"3dBlSeSWRgCMtogB0gKb4Q\",\n        \"email\": \"Test1.SJ@stnl.my\",\n        \"first_name\": \"Test1\",\n        \"last_name\": \"SJ\",\n        \"status\": \"approved\",\n        \"join_url\": \"https://us02web.zoom.us/w/83445007328?tk=snWTUbbA4DjedUZLMdq0Nhz27b-SFm17C4hV4iES41Q.DQIAAAATbbXD4BYzZEJsU2VTV1JnQ010b2dCMGdLYjRRAAAAAAAAAAAAAAAAAAAAAAAAAAAA&pwd=VHhUaUtEOHlLdnd1b3lueVpibm1adz09\",\n        \"meeting_id\": \"83445007328\",\n        \"createdAt\": \"2020-12-09T14:42:53.038Z\",\n        \"updatedAt\": \"2020-12-09T14:43:04.773Z\"\n    },\n    {\n        \"registrant_id\": \"ENwglAWQSWKj6CEXhhqVAQ\",\n        \"email\": \"changpeyde.penang@stnl.my\",\n        \"first_name\": \"Changpeyde\",\n        \"last_name\": \"Penang\",\n        \"status\": \"approved\",\n        \"join_url\": \"https://us02web.zoom.us/w/83445007328?tk=ToyVFw6b2wjQomIALC98e_MNjywafMgibdgpGHWaE0U.DQIAAAATbbXD4BZFTndnbEFXUVNXS2o2Q0VYaGhxVkFRAAAAAAAAAAAAAAAAAAAAAAAAAAAA&pwd=VHhUaUtEOHlLdnd1b3lueVpibm1adz09\",\n        \"meeting_id\": \"83445007328\",\n        \"createdAt\": \"2020-12-09T14:42:53.037Z\",\n        \"updatedAt\": \"2020-12-09T14:43:04.771Z\"\n    },\n    {\n        \"registrant_id\": \"4hgESq76RZuKnTRKpLkcig\",\n        \"email\": \"test9.sj@stnl.my\",\n        \"first_name\": \"Test9\",\n        \"last_name\": \"SJ\",\n        \"status\": \"approved\",\n        \"join_url\": \"https://us02web.zoom.us/w/83445007328?tk=F2Ss3nckxXj-SeAwCTQ8RQUcSIOf3DKCRLrZ7qQFYio.DQIAAAATbbXD4BY0aGdFU3E3NlJadUtuVFJLcExrY2lnAAAAAAAAAAAAAAAAAAAAAAAAAAAA&pwd=VHhUaUtEOHlLdnd1b3lueVpibm1adz09\",\n        \"meeting_id\": \"83445007328\",\n        \"createdAt\": \"2020-12-09T14:42:53.037Z\",\n        \"updatedAt\": \"2020-12-09T14:43:04.771Z\"\n    },\n    {\n        \"registrant_id\": \"PHfSYEgfR5WbXsJqWcr_JA\",\n        \"email\": \"Test4.SJ@stnl.my\",\n        \"first_name\": \"Test4\",\n        \"last_name\": \"SJ\",\n        \"status\": \"approved\",\n        \"join_url\": \"https://us02web.zoom.us/w/83445007328?tk=SQoc9qSfZC0TPJ5MIDGV3g6m2hDWYnj7c-56EVbwQHE.DQIAAAATbbXD4BZQSGZTWUVnZlI1V2JYc0pxV2NyX0pBAAAAAAAAAAAAAAAAAAAAAAAAAAAA&pwd=VHhUaUtEOHlLdnd1b3lueVpibm1adz09\",\n        \"meeting_id\": \"83445007328\",\n        \"createdAt\": \"2020-12-09T14:42:53.038Z\",\n        \"updatedAt\": \"2020-12-09T14:43:04.772Z\"\n    },\n    {\n        \"registrant_id\": \"gdr0FZMFS1SjyDLcass4QQ\",\n        \"email\": \"jtey@build-my.app\",\n        \"first_name\": \"JT\",\n        \"last_name\": null,\n        \"status\": \"approved\",\n        \"join_url\": \"https://us02web.zoom.us/w/83445007328?tk=rZu60Yb2TFbIwfY5yQQoLfFHuvGiCElpbSyALHcPWOw.DQIAAAATbbXD4BZnZHIwRlpNRlMxU2p5RExjYXNzNFFRAAAAAAAAAAAAAAAAAAAAAAAAAAAA&pwd=VHhUaUtEOHlLdnd1b3lueVpibm1adz09\",\n        \"meeting_id\": \"83445007328\",\n        \"createdAt\": \"2020-12-09T14:42:53.038Z\",\n        \"updatedAt\": \"2020-12-09T14:43:04.773Z\"\n    },\n    {\n        \"registrant_id\": \"bJH_ukl-TfWfizjtyzmdrw\",\n        \"email\": \"aarongoh.subangjaya@stnl.my\",\n        \"first_name\": \"Aaron Goh\",\n        \"last_name\": \"Subang Jaya\",\n        \"status\": \"approved\",\n        \"join_url\": \"https://us02web.zoom.us/w/83445007328?tk=BpSpGPgFcZ0Z0Zrc-6wB_Ou6t1yY_J3VFLsuVCwjlI4.DQIAAAATbbXD4BZiSkhfdWtsLVRmV2Zpemp0eXptZHJ3AAAAAAAAAAAAAAAAAAAAAAAAAAAA&pwd=VHhUaUtEOHlLdnd1b3lueVpibm1adz09\",\n        \"meeting_id\": \"83445007328\",\n        \"createdAt\": \"2020-12-09T14:42:53.037Z\",\n        \"updatedAt\": \"2020-12-09T14:43:04.771Z\"\n    },\n    {\n        \"registrant_id\": \"Mv6w7eVJR5S173PjQcevLw\",\n        \"email\": \"test8.sj@stnl.my\",\n        \"first_name\": \"Test8\",\n        \"last_name\": \"SJ\",\n        \"status\": \"approved\",\n        \"join_url\": \"https://us02web.zoom.us/w/83445007328?tk=2Mx36XkNMb2kZLZvHi-p5aVcCQ0GO6adG8_3oimArow.DQIAAAATbbXD4BZNdjZ3N2VWSlI1UzE3M1BqUWNldkx3AAAAAAAAAAAAAAAAAAAAAAAAAAAA&pwd=VHhUaUtEOHlLdnd1b3lueVpibm1adz09\",\n        \"meeting_id\": \"83445007328\",\n        \"createdAt\": \"2020-12-09T14:42:53.038Z\",\n        \"updatedAt\": \"2020-12-09T14:43:04.771Z\"\n    },\n    {\n        \"registrant_id\": \"fLwLnvHjTCSSc6SGfpYAyA\",\n        \"email\": \"Test3.SJ@stnl.my\",\n        \"first_name\": \"Test3\",\n        \"last_name\": \"SJ\",\n        \"status\": \"approved\",\n        \"join_url\": \"https://us02web.zoom.us/w/83445007328?tk=o_RnZW221YwnLsr_vMoWVsOtVW-BKEA-z2EG4tU5gL4.DQIAAAATbbXD4BZmTHdMbnZIalRDU1NjNlNHZnBZQXlBAAAAAAAAAAAAAAAAAAAAAAAAAAAA&pwd=VHhUaUtEOHlLdnd1b3lueVpibm1adz09\",\n        \"meeting_id\": \"83445007328\",\n        \"createdAt\": \"2020-12-09T14:42:53.038Z\",\n        \"updatedAt\": \"2020-12-09T14:43:04.773Z\"\n    },\n    {\n        \"registrant_id\": \"aQpg1aCkT8WABnyNr_Iavw\",\n        \"email\": \"jtey2@build-my.app\",\n        \"first_name\": \"JT2\",\n        \"last_name\": null,\n        \"status\": \"approved\",\n        \"join_url\": \"https://us02web.zoom.us/w/83445007328?tk=kO8Qx_ksT-4klcGnqSUJbySe2AnWE05xBxdceUnYyHw.DQIAAAATbbXD4BZhUXBnMWFDa1Q4V0FCbnlOcl9JYXZ3AAAAAAAAAAAAAAAAAAAAAAAAAAAA&pwd=VHhUaUtEOHlLdnd1b3lueVpibm1adz09\",\n        \"meeting_id\": \"83445007328\",\n        \"createdAt\": \"2020-12-09T14:42:53.038Z\",\n        \"updatedAt\": \"2020-12-09T14:43:04.773Z\"\n    },\n    {\n        \"registrant_id\": \"YUaS8ph3Sri7iFlyC-2EvA\",\n        \"email\": \"test13.sj@stnl.my\",\n        \"first_name\": \"Test13\",\n        \"last_name\": \"SJ\",\n        \"status\": \"approved\",\n        \"join_url\": \"https://us02web.zoom.us/w/83445007328?tk=ThUgbVNxiJiOwEZpyUNkGBJcMSpXXqrcnWNHzBNv1yY.DQIAAAATbbXD4BZZVWFTOHBoM1NyaTdpRmx5Qy0yRXZBAAAAAAAAAAAAAAAAAAAAAAAAAAAA&pwd=VHhUaUtEOHlLdnd1b3lueVpibm1adz09\",\n        \"meeting_id\": \"83445007328\",\n        \"createdAt\": \"2020-12-09T14:42:53.037Z\",\n        \"updatedAt\": \"2020-12-09T14:43:04.771Z\"\n    },\n    {\n        \"registrant_id\": \"I6FpVugQQrKQRtAlQ2P4fQ\",\n        \"email\": \"test7.sj@stnl.my\",\n        \"first_name\": \"Test7\",\n        \"last_name\": \"SJ\",\n        \"status\": \"approved\",\n        \"join_url\": \"https://us02web.zoom.us/w/83445007328?tk=0BWK-45N1zStXz7irOEt1UYwnqwjZvqpizaA9uF30Vw.DQIAAAATbbXD4BZJNkZwVnVnUVFyS1FSdEFsUTJQNGZRAAAAAAAAAAAAAAAAAAAAAAAAAAAA&pwd=VHhUaUtEOHlLdnd1b3lueVpibm1adz09\",\n        \"meeting_id\": \"83445007328\",\n        \"createdAt\": \"2020-12-09T14:42:53.038Z\",\n        \"updatedAt\": \"2020-12-09T14:43:04.771Z\"\n    },\n    {\n        \"registrant_id\": \"JlvV2xYnTIqiqmh0Gfu7KQ\",\n        \"email\": \"Test2.SJ@stnl.my\",\n        \"first_name\": \"Test2\",\n        \"last_name\": \"SJ\",\n        \"status\": \"approved\",\n        \"join_url\": \"https://us02web.zoom.us/w/83445007328?tk=c0u-v-Tk69EUoX_URFUyRU_gbL51OBhh-hw6iboGhGg.DQIAAAATbbXD4BZKbHZWMnhZblRJcWlxbWgwR2Z1N0tRAAAAAAAAAAAAAAAAAAAAAAAAAAAA&pwd=VHhUaUtEOHlLdnd1b3lueVpibm1adz09\",\n        \"meeting_id\": \"83445007328\",\n        \"createdAt\": \"2020-12-09T14:42:53.038Z\",\n        \"updatedAt\": \"2020-12-09T14:43:04.773Z\"\n    },\n    {\n        \"registrant_id\": \"jYFtzEOJQ_yk16Pxs6gfRw\",\n        \"email\": \"besj.ireneyek@stnl.my\",\n        \"first_name\": \"BESJ\",\n        \"last_name\": \"Irene Yek\",\n        \"status\": \"approved\",\n        \"join_url\": \"https://us02web.zoom.us/w/83445007328?tk=FzaMyQoDKmBqQKss1qb3Tj5ozEz8B9xQCZOVDgoxrhc.DQIAAAATbbXD4BZqWUZ0ekVPSlFfeWsxNlB4czZnZlJ3AAAAAAAAAAAAAAAAAAAAAAAAAAAA&pwd=VHhUaUtEOHlLdnd1b3lueVpibm1adz09\",\n        \"meeting_id\": \"83445007328\",\n        \"createdAt\": \"2020-12-09T14:42:53.036Z\",\n        \"updatedAt\": \"2020-12-09T14:43:04.771Z\"\n    },\n    {\n        \"registrant_id\": \"rEdXb7__QWyLa-ftj3I7JA\",\n        \"email\": \"bcsj.timooi@stnl.my\",\n        \"first_name\": \"BCSJ\",\n        \"last_name\": \"Tim Ooi\",\n        \"status\": \"approved\",\n        \"join_url\": \"https://us02web.zoom.us/w/83445007328?tk=jU2eJVNbIyZkCCKEOfkyN0i4d-GcG3f3yn3rIVl1_wE.DQIAAAATbbXD4BZyRWRYYjdfX1FXeUxhLWZ0ajNJN0pBAAAAAAAAAAAAAAAAAAAAAAAAAAAA&pwd=VHhUaUtEOHlLdnd1b3lueVpibm1adz09\",\n        \"meeting_id\": \"83445007328\",\n        \"createdAt\": \"2020-12-09T14:42:53.037Z\",\n        \"updatedAt\": \"2020-12-09T14:43:04.771Z\"\n    },\n    {\n        \"registrant_id\": \"DWFnjVmWRhKpjoGF9JhZ3Q\",\n        \"email\": \"besj.weijie@stnl.my\",\n        \"first_name\": \"BESJ\",\n        \"last_name\": \"Wei Jie\",\n        \"status\": \"approved\",\n        \"join_url\": \"https://us02web.zoom.us/w/83445007328?tk=CeFuzQ0hejRNH6g2t5jTNW03H61HaV4vFQIL_vOtSQI.DQIAAAATbbXD4BZEV0ZualZtV1JoS3Bqb0dGOUpoWjNRAAAAAAAAAAAAAAAAAAAAAAAAAAAA&pwd=VHhUaUtEOHlLdnd1b3lueVpibm1adz09\",\n        \"meeting_id\": \"83445007328\",\n        \"createdAt\": \"2020-12-09T14:42:53.037Z\",\n        \"updatedAt\": \"2020-12-09T14:43:04.771Z\"\n    },\n    {\n        \"registrant_id\": \"FgjV15B2R0eYTCL1A2_6_Q\",\n        \"email\": \"abc.123@stnl.my\",\n        \"first_name\": \"ABC\",\n        \"last_name\": \"123\",\n        \"status\": \"approved\",\n        \"join_url\": \"https://us02web.zoom.us/w/83445007328?tk=bgwR5yT7CHto6iePpASB1gD2-TzXa8b9Ilk9LFrwIpI.DQIAAAATbbXD4BZGZ2pWMTVCMlIwZVlUQ0wxQTJfNl9RAAAAAAAAAAAAAAAAAAAAAAAAAAAA&pwd=VHhUaUtEOHlLdnd1b3lueVpibm1adz09\",\n        \"meeting_id\": \"83445007328\",\n        \"createdAt\": \"2020-12-09T14:42:53.037Z\",\n        \"updatedAt\": \"2020-12-09T14:43:04.771Z\"\n    },\n    {\n        \"registrant_id\": \"RO5xH2vuSP-RWfEEqaf15Q\",\n        \"email\": \"gracehosongen.subangjaya@stnl.my\",\n        \"first_name\": \"Grace Ho Song En\",\n        \"last_name\": \"Subang Jaya\",\n        \"status\": \"approved\",\n        \"join_url\": \"https://us02web.zoom.us/w/83445007328?tk=ufoIl0wUgX1uImb43bMjQ7LPIJdi8EY0dt7orAauFas.DQIAAAATbbXD4BZSTzV4SDJ2dVNQLVJXZkVFcWFmMTVRAAAAAAAAAAAAAAAAAAAAAAAAAAAA&pwd=VHhUaUtEOHlLdnd1b3lueVpibm1adz09\",\n        \"meeting_id\": \"83445007328\",\n        \"createdAt\": \"2020-12-09T14:42:53.037Z\",\n        \"updatedAt\": \"2020-12-09T14:43:04.771Z\"\n    },\n    {\n        \"registrant_id\": \"Z0lc9heeTFeYA-aHVRj-oA\",\n        \"email\": \"feliciaang.subangjaya@stnl.my\",\n        \"first_name\": \"Felicia Ang\",\n        \"last_name\": \"Subang Jaya\",\n        \"status\": \"approved\",\n        \"join_url\": \"https://us02web.zoom.us/w/83445007328?tk=fViTH3-PsdF-H79TEbIXwJ3dxWTHOpiGzUV1InBV_ZQ.DQIAAAATbbXD4BZaMGxjOWhlZVRGZVlBLWFIVlJqLW9BAAAAAAAAAAAAAAAAAAAAAAAAAAAA&pwd=VHhUaUtEOHlLdnd1b3lueVpibm1adz09\",\n        \"meeting_id\": \"83445007328\",\n        \"createdAt\": \"2020-12-09T14:42:53.037Z\",\n        \"updatedAt\": \"2020-12-09T14:43:04.771Z\"\n    },\n    {\n        \"registrant_id\": \"1pRGrpr3SsmIoKBjLN4BtA\",\n        \"email\": \"ezragong.manjung@stnl.my\",\n        \"first_name\": \"Ezra Gong\",\n        \"last_name\": \"Manjung\",\n        \"status\": \"approved\",\n        \"join_url\": \"https://us02web.zoom.us/w/83445007328?tk=1EZqJFAkibWzwG6r-WeG_EQOzfG03Ej49bhYB-nmM5Y.DQIAAAATbbXD4BYxcFJHcnByM1NzbUlvS0JqTE40QnRBAAAAAAAAAAAAAAAAAAAAAAAAAAAA&pwd=VHhUaUtEOHlLdnd1b3lueVpibm1adz09\",\n        \"meeting_id\": \"83445007328\",\n        \"createdAt\": \"2020-12-09T14:42:53.037Z\",\n        \"updatedAt\": \"2020-12-09T14:43:04.771Z\"\n    },\n    {\n        \"registrant_id\": \"ReeEfyxFS_iGIHpXGlweOg\",\n        \"email\": \"eilisyapxinrou.subangjaya@stnl.my\",\n        \"first_name\": \"Eilis Yap Xin Rou\",\n        \"last_name\": \"Subang Jaya\",\n        \"status\": \"approved\",\n        \"join_url\": \"https://us02web.zoom.us/w/83445007328?tk=ZmhDNURm7jkACusK2squvYyVywEkx72td4AzRJpFG6I.DQIAAAATbbXD4BZSZWVFZnl4RlNfaUdJSHBYR2x3ZU9nAAAAAAAAAAAAAAAAAAAAAAAAAAAA&pwd=VHhUaUtEOHlLdnd1b3lueVpibm1adz09\",\n        \"meeting_id\": \"83445007328\",\n        \"createdAt\": \"2020-12-09T14:42:53.037Z\",\n        \"updatedAt\": \"2020-12-09T14:43:04.771Z\"\n    },\n    {\n        \"registrant_id\": \"wy1q-3p7Ro-LwYQXJoZr4Q\",\n        \"email\": \"davidnhkum.kl@stnl.my\",\n        \"first_name\": \"David Nhkum\",\n        \"last_name\": \"KL\",\n        \"status\": \"approved\",\n        \"join_url\": \"https://us02web.zoom.us/w/83445007328?tk=OuGojlFZoGOzCxadi5XFkPP8srCSksMgrbheM6yegh8.DQIAAAATbbXD4BZ3eTFxLTNwN1JvLUx3WVFYSm9acjRRAAAAAAAAAAAAAAAAAAAAAAAAAAAA&pwd=VHhUaUtEOHlLdnd1b3lueVpibm1adz09\",\n        \"meeting_id\": \"83445007328\",\n        \"createdAt\": \"2020-12-09T14:42:53.037Z\",\n        \"updatedAt\": \"2020-12-09T14:43:04.771Z\"\n    },\n    {\n        \"registrant_id\": \"9ZSFZ7JKTyCd5BhwI4s87Q\",\n        \"email\": \"davidlahpai.kl@stnl.my\",\n        \"first_name\": \"David Lahpai\",\n        \"last_name\": \"KL\",\n        \"status\": \"approved\",\n        \"join_url\": \"https://us02web.zoom.us/w/83445007328?tk=AUVbWBbJC8b4x3249lcCVCBcs7Uucif3vhCxIWhIBbw.DQIAAAATbbXD4BY5WlNGWjdKS1R5Q2Q1Qmh3STRzODdRAAAAAAAAAAAAAAAAAAAAAAAAAAAA&pwd=VHhUaUtEOHlLdnd1b3lueVpibm1adz09\",\n        \"meeting_id\": \"83445007328\",\n        \"createdAt\": \"2020-12-09T14:42:53.037Z\",\n        \"updatedAt\": \"2020-12-09T14:43:04.771Z\"\n    },\n    {\n        \"registrant_id\": \"0uEoO6sLSyeiGdkkuENrKQ\",\n        \"email\": \"alvinceanakridy.kuantan@stnl.my\",\n        \"first_name\": \"Alvince Anak Ridy\",\n        \"last_name\": \"Kuantan\",\n        \"status\": \"approved\",\n        \"join_url\": \"https://us02web.zoom.us/w/83445007328?tk=M3wxlkbFNpWmdDdRhrx5B5vjm66OlwjfbrsGbG3U9yE.DQIAAAATbbXD4BYwdUVvTzZzTFN5ZWlHZGtrdUVOcktRAAAAAAAAAAAAAAAAAAAAAAAAAAAA&pwd=VHhUaUtEOHlLdnd1b3lueVpibm1adz09\",\n        \"meeting_id\": \"83445007328\",\n        \"createdAt\": \"2020-12-09T14:42:53.037Z\",\n        \"updatedAt\": \"2020-12-09T14:43:04.771Z\"\n    },\n    {\n        \"registrant_id\": \"w55gujI3T5abrUz_Hfz96Q\",\n        \"email\": \"test11.sj@stnl.my\",\n        \"first_name\": \"Test11\",\n        \"last_name\": \"SJ\",\n        \"status\": \"approved\",\n        \"join_url\": \"https://us02web.zoom.us/w/83445007328?tk=Zc1Vpc6SJxt4pRt4Rph32cTYGxYdtsSw72ldZKm9Vqg.DQIAAAATbbXD4BZ3NTVndWpJM1Q1YWJyVXpfSGZ6OTZRAAAAAAAAAAAAAAAAAAAAAAAAAAAA&pwd=VHhUaUtEOHlLdnd1b3lueVpibm1adz09\",\n        \"meeting_id\": \"83445007328\",\n        \"createdAt\": \"2020-12-09T14:42:53.037Z\",\n        \"updatedAt\": \"2020-12-09T14:43:04.771Z\"\n    },\n    {\n        \"registrant_id\": \"BSlL_p01RnW6ocgh8jt2lw\",\n        \"email\": \"test6.sj@stnl.my\",\n        \"first_name\": \"Test6\",\n        \"last_name\": \"SJ\",\n        \"status\": \"approved\",\n        \"join_url\": \"https://us02web.zoom.us/w/83445007328?tk=DZH2CFvszpqTe_YDKhZ9zXyVwslgl2JDcRmtX06dpkQ.DQIAAAATbbXD4BZCU2xMX3AwMVJuVzZvY2doOGp0Mmx3AAAAAAAAAAAAAAAAAAAAAAAAAAAA&pwd=VHhUaUtEOHlLdnd1b3lueVpibm1adz09\",\n        \"meeting_id\": \"83445007328\",\n        \"createdAt\": \"2020-12-09T14:42:53.038Z\",\n        \"updatedAt\": \"2020-12-09T14:43:04.772Z\"\n    },\n    {\n        \"registrant_id\": \"dye6nZq_Ql2OX1n2FnQX4g\",\n        \"email\": \"j@build-my.app\",\n        \"first_name\": \"1\",\n        \"last_name\": \"2\",\n        \"status\": \"approved\",\n        \"join_url\": \"https://us02web.zoom.us/w/83445007328?tk=6bdlLehp6S0fyYXheiAYnkFXs0IUKjMgOe2jybHUnCc.DQIAAAATbbXD4BZkeWU2blpxX1FsMk9YMW4yRm5RWDRnAAAAAAAAAAAAAAAAAAAAAAAAAAAA&pwd=VHhUaUtEOHlLdnd1b3lueVpibm1adz09\",\n        \"meeting_id\": \"83445007328\",\n        \"createdAt\": \"2020-12-09T14:42:53.038Z\",\n        \"updatedAt\": \"2020-12-09T14:43:04.773Z\"\n    }\n]"
+						}
+					]
+				},
+				{
+					"name": "Create Meeting Registrant",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{ACCESS_TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"first_name\": \"BESJ001\",\r\n    \"last_name\": \"Jonathan Tey\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/api/meetings/:meetingId/registrants",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"api",
+								"meetings",
+								":meetingId",
+								"registrants"
+							],
+							"variable": [
+								{
+									"key": "meetingId",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Create Meeting Registrant",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"first_name\": \"BESJ001\",\r\n    \"last_name\": \"Jonathan Tey\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{BASE_URL}}/api/meetings/:meetingId/registrants",
+									"host": [
+										"{{BASE_URL}}"
+									],
+									"path": [
+										"api",
+										"meetings",
+										":meetingId",
+										"registrants"
+									],
+									"variable": [
+										{
+											"key": "meetingId",
+											"value": "83445007328"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "ETag",
+									"value": "\"153-9LWVaPcEdAbgbW9w8zhRaUMQ7mk\""
+								},
+								{
+									"key": "Content-Length",
+									"value": "339"
+								},
+								{
+									"key": "Vary",
+									"value": "Accept-Encoding"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 09 Dec 2020 14:48:26 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"registrant_id\": \"HmgLGXk1SECUHn7wHg1jTA\",\n    \"id\": 83445007328,\n    \"topic\": \"Test Meeting Registration\",\n    \"start_time\": \"2020-12-22T01:00:00Z\",\n    \"join_url\": \"https://us02web.zoom.us/w/83445007328?tk=Q6CNXnigj-e19Y3WNgKK7JuirxIYU3WGmEfCLcdOzvs.DQIAAAATbbXD4BZIbWdMR1hrMVNFQ1VIbjd3SGcxalRBAAAAAAAAAAAAAAAAAAAAAAAAAAAA&pwd=VHhUaUtEOHlLdnd1b3lueVpibm1adz09\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Edit Meeting Registrant Status",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{ACCESS_TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"action\": \"cancel\",\r\n    \"registrants\": [\r\n        {\r\n            \"id\": \"D1_H0c9yQcOAs-cogRg7TQ\",\r\n            \"email\": \"jontey88@gmail.com\"\r\n        }\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/api/meetings/:meetingId/registrants",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"api",
+								"meetings",
+								":meetingId",
+								"registrants"
+							],
+							"variable": [
+								{
+									"key": "meetingId",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Create Meeting Registrant",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"first_name\": \"BESJ001\",\r\n    \"last_name\": \"Jonathan Tey\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{BASE_URL}}/api/meetings/:meetingId/registrants",
+									"host": [
+										"{{BASE_URL}}"
+									],
+									"path": [
+										"api",
+										"meetings",
+										":meetingId",
+										"registrants"
+									],
+									"variable": [
+										{
+											"key": "meetingId",
+											"value": "83445007328"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "ETag",
+									"value": "\"153-9LWVaPcEdAbgbW9w8zhRaUMQ7mk\""
+								},
+								{
+									"key": "Content-Length",
+									"value": "339"
+								},
+								{
+									"key": "Vary",
+									"value": "Accept-Encoding"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 09 Dec 2020 14:48:26 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"registrant_id\": \"HmgLGXk1SECUHn7wHg1jTA\",\n    \"id\": 83445007328,\n    \"topic\": \"Test Meeting Registration\",\n    \"start_time\": \"2020-12-22T01:00:00Z\",\n    \"join_url\": \"https://us02web.zoom.us/w/83445007328?tk=Q6CNXnigj-e19Y3WNgKK7JuirxIYU3WGmEfCLcdOzvs.DQIAAAATbbXD4BZIbWdMR1hrMVNFQ1VIbjd3SGcxalRBAAAAAAAAAAAAAAAAAAAAAAAAAAAA&pwd=VHhUaUtEOHlLdnd1b3lueVpibm1adz09\"\n}"
+						},
+						{
+							"name": "Edit Meeting Registrant Status",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"action\": \"approve\",\r\n    \"registrants\": [\r\n        {\r\n            \"id\": \"D1_H0c9yQcOAs-cogRg7TQ\",\r\n            \"email\": \"jontey88@gmail.com\"\r\n        }\r\n    ]\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{BASE_URL}}/api/meetings/:meetingId/registrants",
+									"host": [
+										"{{BASE_URL}}"
+									],
+									"path": [
+										"api",
+										"meetings",
+										":meetingId",
+										"registrants"
+									],
+									"variable": [
+										{
+											"key": "meetingId",
+											"value": "83445007328"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "ETag",
+									"value": "\"b-Ai2R8hgEarLmHKwesT1qcY913ys\""
+								},
+								{
+									"key": "Content-Length",
+									"value": "11"
+								},
+								{
+									"key": "Vary",
+									"value": "Accept-Encoding"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 18 Dec 2020 09:21:50 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"ok\": true\n}"
+						}
+					]
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Get Access Token",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "36d88694-c9c3-441f-be5e-eec6b8282536",
+						"exec": [
+							"pm.test(\"Automatically set access_token if available\", function () {\r",
+							"    const responseJson = pm.response.json();\r",
+							"    pm.expect(responseJson.access_token).to.be.a('string')\r",
+							"    pm.environment.set(\"ACCESS_TOKEN\", responseJson.access_token)\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"token\": \"{{TOKEN}}\"\r\n}"
+				},
+				"url": {
+					"raw": "{{BASE_URL}}/api/access_token",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"api",
+						"access_token"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "{{ACCESS_TOKEN}}",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "7acd3b24-1b96-4912-bf7d-ad207497a84a",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "14bf796b-05d9-42f4-ad9e-a816a940b1e6",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"id": "cf975e6e-2338-401a-916e-f7f8711723fd",
+			"key": "BASE_URL",
+			"value": "https://app.stnl.my"
+		},
+		{
+			"id": "a0c273a6-486d-4689-9a09-1d6110bd0f27",
+			"key": "TOKEN",
+			"value": ""
+		}
+	],
+	"protocolProfileBehavior": {}
+}

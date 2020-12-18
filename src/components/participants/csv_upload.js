@@ -53,21 +53,15 @@ export default function CSVUpload({ isOpen, onClose, meetingId }) {
       try {
         const names = nameList[i]
         const { name, locality, email } = names
-        const response = await axios.post('/api/zoom', {
+        await axios.post(`/api/meetings/${meetingId}/registrants`, {
+          first_name: name,
+          last_name: locality,
+          email: email
+        },{
           headers: {
             authorization: `Bearer ${accessToken}`
-          },
-          url: `/meetings/${meetingId}/registrants`,
-          method: 'post',
-          data: {
-            first_name: name,
-            last_name: locality,
-            email: email || `${name}.${locality}@stnl.my`.toLowerCase().replace(/\s/g,''),
-            auto_approve: true
           }
         })
-          
-        console.log(response.data)
       } catch (e) {
         enqueueSnackbar(`Error in row ${i+1}`, { 
           variant: 'error',
@@ -102,7 +96,7 @@ export default function CSVUpload({ isOpen, onClose, meetingId }) {
         useChipsForPreview={true}
         showAlerts={[ 'error' ]} 
       />
-      <Backdrop  className={classes.backdrop} open={loading}>
+      <Backdrop className={classes.backdrop} open={loading}>
         <>
           <CircularProgress color="inherit" />
           <Typography>

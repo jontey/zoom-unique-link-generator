@@ -8,7 +8,7 @@ let store
 
 const defaultState = {
   accessToken: '',
-  refreshToken: ''
+  user: {}
 }
 
 const reducer = (state = defaultState, action) => {
@@ -17,7 +17,7 @@ const reducer = (state = defaultState, action) => {
       return {
         ...state,
         accessToken: action.accessToken,
-        refreshToken: action.refreshToken
+        user: action.user
       }
     case 'CLEAR_TOKEN':
       return defaultState
