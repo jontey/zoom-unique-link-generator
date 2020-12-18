@@ -10,34 +10,34 @@ export default async (req, res) => {
   try {
     await runMiddleware(req, res, jwtCheck)
 
+    const account = await Account.findOne({
+      attributes: [
+        'zoom_client_id',
+        'zoom_client_secret'
+      ], 
+      where: {
+        account_id: req.user.sub
+      }
+    })
+
+    const { zoom_client_id, zoom_client_secret } = account
+
+    const token = jwt.sign(
+      {
+        iss: zoom_client_id
+      }, 
+      zoom_client_secret,{
+        expiresIn: '5m',
+        noTimestamp: true
+      }
+    )
+
     const { meetingId, refresh, status } = req.query
 
     if (req.method === 'GET') {
       await runMiddleware(req, res, jwtAuthz([ 'read:user' ], { customScopeKey: 'permissions' }))
       
       if (refresh == 'true') {
-        const account = await Account.findOne({
-          attributes: [
-            'zoom_client_id',
-            'zoom_client_secret'
-          ], 
-          where: {
-            account_id: req.user.sub
-          }
-        })
-
-        const { zoom_client_id, zoom_client_secret } = account
-
-        const token = jwt.sign(
-          {
-            iss: zoom_client_id
-          }, 
-          zoom_client_secret,{
-            expiresIn: '5m',
-            noTimestamp: true
-          }
-        )
-
         const fetchRegistrants = ({ meetingId, params }) => {
           return Axios.get(`https://api.zoom.us/v2/meetings/${meetingId}/registrants`, {
             headers: {
@@ -50,6 +50,7 @@ export default async (req, res) => {
         }
 
         const registrants = []
+
         let total_records = 0
         let count = 0
         const params = {
@@ -60,7 +61,7 @@ export default async (req, res) => {
         do {
           const { data } = await fetchRegistrants({ meetingId, params })
           registrants.push(...data.registrants)
-
+    
           // Fetch next page if needed
           total_records = data.total_records
           params.next_page_token = data.next_page_token
@@ -88,38 +89,21 @@ export default async (req, res) => {
         )
       }
 
-      const data = await ZoomRegistrant.findAll({
+      const zoomRegistrantOptions = {
         where: {
-          meeting_id: meetingId,
-          status: status || 'approved'
+          meeting_id: meetingId
         }
-      })
+      }
+
+      if (status) {
+        zoomRegistrantOptions.where.status = status
+      }
+
+      const data = await ZoomRegistrant.findAll(zoomRegistrantOptions)
       
       return res.json(data || [])
     } else if (req.method === 'POST') {
       await runMiddleware(req, res, jwtAuthz([ 'write:user' ], { customScopeKey: 'permissions' }))
-
-      const account = await Account.findOne({
-        attributes: [
-          'zoom_client_id',
-          'zoom_client_secret'
-        ], 
-        where: {
-          account_id: req.user.sub
-        }
-      })
-
-      const { zoom_client_id, zoom_client_secret } = account
-
-      const token = jwt.sign(
-        {
-          iss: zoom_client_id
-        }, 
-        zoom_client_secret,{
-          expiresIn: '5m',
-          noTimestamp: true
-        }
-      )
 
       // Unpack data
       const { email, first_name, last_name } = req.body
@@ -150,6 +134,43 @@ export default async (req, res) => {
       }
 
       return res.json(data)
+
+    } else if (req.method === 'PUT') {
+      await runMiddleware(req, res, jwtAuthz([ 'write:user' ], { customScopeKey: 'permissions' }))
+      
+      // Unpack data
+      const { action, registrants } = req.body
+      
+      const { status } = await Axios.put(`https://api.zoom.us/v2/meetings/${meetingId}/registrants/status`, {
+        action,
+        registrants
+      },
+      {
+        headers: {
+          authorization: `Bearer ${token}`
+        }
+      })
+
+      if (status == 204) {
+        let statusMap = {
+          approve: 'approved',
+          cancel: 'denied',
+          deny: 'denied'
+        }
+        await Promise.all(
+          registrants.map(({ id: registrant_id }) => {
+            return ZoomRegistrant.update({
+              status: statusMap[action]
+            }, {
+              where: {
+                registrant_id
+              }
+            })
+          })
+        )
+      }
+
+      return res.json({ ok: true })
 
     } else {
       return res.status(404)

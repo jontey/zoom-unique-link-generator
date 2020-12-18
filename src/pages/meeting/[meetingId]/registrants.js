@@ -4,17 +4,19 @@ import { useSelector } from 'react-redux'
 import MaterialTable from 'material-table'
 import { useRouter } from 'next/router'
 import { Button, IconButton, Tooltip } from '@material-ui/core'
-import { ArrowBack, Check } from '@material-ui/icons'
+import { ArrowBack, Block, Check, IndeterminateCheckBox } from '@material-ui/icons'
 import Layout from '@/components/layout'
 import { withAuthenticationRequired } from '@auth0/auth0-react'
 import Loading from '@/components/loading'
 import AddParticipants from '@/components/participants/add'
 import CSVUpload from '@/components/participants/csv_upload'
+import { useSnackbar } from 'notistack'
 
 function Registrants() {
   const router = useRouter()
   const { meetingId } = router.query
   const accessToken = useSelector(state => state.accessToken)
+  const { enqueueSnackbar } = useSnackbar()
   const [ registrantList, setRegistrantList ] = useState([])
   const [ loading, setLoading ] = useState(true)
   const [ showAddParticipant, setShowAddParticipant ] = useState(false)
@@ -38,19 +40,49 @@ function Registrants() {
   const fetchRegistrantList = (refresh = false) => {
     setLoading(true)
 
-    axios.get(`/api/meetings/${meetingId}/registrants`, {
-      headers: {
-        authorization: `Bearer ${accessToken}`
-      },
-      params: {
-        refresh
-      }
-    }).then(({ data })=> {
-      setRegistrantList(data)
-    }).catch(e => {
-      console.log('[Error] fetch Zoom Users', e)
+    Promise.all(
+      [ 'pending', 'approved', 'denied' ].map((status)=> {
+        return axios.get(`/api/meetings/${meetingId}/registrants`, {
+          headers: {
+            authorization: `Bearer ${accessToken}`
+          },
+          params: {
+            status,
+            refresh
+          }
+        }).then(({ data })=> {
+          return data
+        }).catch(e => {
+          console.log('[Error] fetch Zoom registrant', e)
+        })
+      })
+    ).then((registrants) => {
+      setRegistrantList(registrants.flat())
+    }).catch(({ response, message }) => {
+      enqueueSnackbar(`${response.data.message || message}`, { 
+        variant: 'error',
+        anchorOrigin: {
+          vertical: 'top',
+          horizontal: 'center'
+        }
+      })
     }).finally(() => {
       setLoading(false)
+    })
+  }
+
+  const updateRegistrantStatus = ({ action, registrants }) => {
+    axios.put(`/api/meetings/${meetingId}/registrants`, {
+      action,
+      registrants: registrants.map(r => ({ id: r.registrant_id, email: r.email }))
+    }, {
+      headers: {
+        authorization: `Bearer ${accessToken}`
+      }
+    }).then(() => {
+      fetchRegistrantList()
+    }).catch(e => {
+      console.log('[Error] fetch Zoom Users', e)
     })
   }
 
@@ -91,12 +123,12 @@ function Registrants() {
                   )}
                   {rowData.status === 'pending' && (
                     <Tooltip title="Pending">
-                      <Check/>
+                      <IndeterminateCheckBox/>
                     </Tooltip>
                   )}
                   {rowData.status === 'denied' && (
                     <Tooltip title="Denied">
-                      <Check/>
+                      <Block/>
                     </Tooltip>
                   )}
                 </>
@@ -129,6 +161,19 @@ function Registrants() {
             tooltip: 'Upload CSV',
             isFreeAction: true,
             onClick: () => setShowAddCSVUpload(true)
+          },
+          rowData => {
+            return rowData.status !== 'approved' ?
+              {
+                icon: 'check',
+                tooltip: 'Mark approved',
+                onClick: () => updateRegistrantStatus({ action:'approve', registrants: [ rowData ] })
+              } : 
+              {
+                icon: 'clear',
+                tooltip: 'Mark denied',
+                onClick: () => updateRegistrantStatus({ action:'cancel', registrants: [ rowData ] })
+              }
           }
         ]}
         options={{
