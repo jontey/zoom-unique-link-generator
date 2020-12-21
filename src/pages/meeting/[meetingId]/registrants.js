@@ -98,6 +98,12 @@ function Registrants() {
         title="Registrant List"
         columns={[
           {
+            title: 'Registrant Id',
+            field: 'registrant_id',
+            hidden: true,
+            export: true
+          },
+          {
             title: 'First Name',
             field: 'first_name'
           },
