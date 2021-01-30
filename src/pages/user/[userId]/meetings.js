@@ -182,6 +182,12 @@ function Meetings() {
             }
           },
           {
+            title: 'Host Link',
+            field: 'start_url',
+            // eslint-disable-next-line react/display-name
+            render: (rowData) => <Button color="error" variant="contained" href={rowData.start_url}>Start Link</Button>
+          },
+          {
             title: 'Link',
             field: 'join_url',
             // eslint-disable-next-line react/display-name
