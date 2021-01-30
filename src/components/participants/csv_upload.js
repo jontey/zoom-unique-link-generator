@@ -52,10 +52,10 @@ export default function CSVUpload({ isOpen, onClose, meetingId }) {
       setCurrentIndex(i+1)
       try {
         const names = nameList[i]
-        const { name, locality, email } = names
+        const { name, locality, first_name, last_name, email } = names
         await axios.post(`/api/meetings/${meetingId}/registrants`, {
-          first_name: name,
-          last_name: locality,
+          first_name: name || first_name,
+          last_name: locality || last_name,
           email: email
         },{
           headers: {
