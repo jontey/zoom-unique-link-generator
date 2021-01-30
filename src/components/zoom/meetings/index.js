@@ -50,6 +50,12 @@ function Meetings() {
           field: 'start_time'
         },
         {
+          title: 'Host Link',
+          field: 'start_url',
+          // eslint-disable-next-line react/display-name
+          render: (rowData) => <Button color="error" variant="contained" href={rowData.join_url}>Start Link</Button>
+        },
+        {
           title: 'Link',
           field: 'join_url',
           // eslint-disable-next-line react/display-name
